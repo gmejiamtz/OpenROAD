@@ -657,7 +657,7 @@ void TechChar::initCharacterization()
 void TechChar::finalizeRootSinkBuffers()
 {
   // Sink info is not available yet, so defer adjustment till later
-  logger_->info(CTS, 12123, "In finalizeRootSinkBuffers() this is just a test to see if flow scripts use this repo in reality.");
+  logger_->info(CTS, 1234, "In finalizeRootSinkBuffers() this is just a test to see if flow scripts use this repo in reality.");
   logger_->info(CTS, 50, "Root buffer is {}.", options_->getRootBuffer());
   logger_->info(CTS, 51, "Sink buffer is {}.", options_->getSinkBuffer());
   if (options_->isSinkBufferMaxCapDerateSet()) {

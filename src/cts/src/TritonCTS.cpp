@@ -1167,7 +1167,8 @@ bool TritonCTS::separateMacroRegSinks(
   for (odb::dbITerm* iterm : net->getITerms()) {
     odb::dbInst* inst = iterm->getInst();
 
-    if (buffer_masters.find(inst->getMaster()) != buffer_masters.end()) {
+    if (buffer_masters.find(inst->getMaster()) != buffer_masters.end()
+        && inst->getSourceType() == odb::dbSourceType::TIMING) {
       logger_->warn(CTS,
                     105,
                     "Net \"{}\" already has clock buffer {}. Skipping...",
@@ -2141,7 +2142,7 @@ float TritonCTS::getVertexClkArrival(sta::Vertex* sinkVertex,
     const sta::Clock* clock = path->clock(openSta_);
     if (clock) {
       sta::PathExpanded expand(path, openSta_);
-      const sta::PathRef* start = expand.startPath();
+      const sta::Path* start = expand.startPath();
 
       odb::dbNet* pathStartNet = nullptr;
 
@@ -2157,7 +2158,7 @@ float TritonCTS::getVertexClkArrival(sta::Vertex* sinkVertex,
         pathStartNet = port->getNet();
       }
       if (pathStartNet == topNet) {
-        clkPathArrival = path->arrival(openSta_);
+        clkPathArrival = path->arrival();
         return clkPathArrival;
       }
     }

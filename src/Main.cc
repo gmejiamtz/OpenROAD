@@ -231,7 +231,6 @@ int main(int argc, char* argv[])
 {
   // This avoids problems with locale setting dependent
   // C functions like strtod (e.g. 0.5 vs 0,5).
-  std::cout << "Am I testing my build of OpenROAD" << std::endl;
   std::array locales = {"en_US.UTF-8", "C.UTF-8", "C"};
   for (auto locale : locales) {
     if (std::setlocale(LC_ALL, locale) != nullptr) {

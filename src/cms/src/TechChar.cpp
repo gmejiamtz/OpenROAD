@@ -52,7 +52,7 @@ TechChar::TechChar(CtsOptions* options,
 
 void TechChar::compileLut(const std::vector<TechChar::ResultData>& lutSols)
 {
-  debugPrint(logger_, CTS, "tech char", 1, "Compiling LUT.");
+  debugPrint(logger_, CMS, "tech char", 1, "Compiling LUT.");
   initLengthUnits();
 
   minSegmentLength_ = toInternalLengthUnit(minSegmentLength_);
@@ -107,21 +107,21 @@ void TechChar::compileLut(const std::vector<TechChar::ResultData>& lutSols)
     }
   }
 
-  if (logger_->debugCheck(utl::CTS, "tech char", 1)
+  if (logger_->debugCheck(utl::CMS, "tech char", 1)
       && noSlewDegradationCount > 0) {
-    logger_->warn(CTS,
+    logger_->warn(CMS,
                   43,
                   "{} wires are pure wire and no slew degradation.\n"
                   "TritonCTS forced slew degradation on these wires.",
                   noSlewDegradationCount);
     logger_->info(
-        CTS, 46, "    Number of wire segments: {}.", wireSegments_.size());
-    logger_->info(CTS,
+        CMS, 46, "    Number of wire segments: {}.", wireSegments_.size());
+    logger_->info(CMS,
                   47,
                   "    Number of keys in characterization LUT: {}.",
                   keyToWireSegments_.size());
 
-    logger_->info(CTS, 48, "    Actual min input cap: {}.", actualMinInputCap_);
+    logger_->info(CMS, 48, "    Actual min input cap: {}.", actualMinInputCap_);
   }
 }
 
@@ -132,7 +132,7 @@ void TechChar::initLengthUnits()
 
 inline void TechChar::reportCharacterizationBounds() const
 {
-  if (logger_->debugCheck(utl::CTS, "tech char", 1)) {
+  if (logger_->debugCheck(utl::CMS, "tech char", 1)) {
     logger_->report(
         "Min. len    Max. len    Min. cap    Max. cap    Min. slew   Max. "
         "slew");
@@ -155,7 +155,7 @@ inline void TechChar::checkCharacterizationBounds() const
       || maxCapacitance_ > MAX_NORMALIZED_VAL || minSlew_ > MAX_NORMALIZED_VAL
       || maxSlew_ > MAX_NORMALIZED_VAL) {
     logger_->error(
-        CTS,
+        CMS,
         65,
         "Normalized values in the LUT should be in the range [1, {}\n"
         "    Check the table above to see the normalization ranges and your "
@@ -358,8 +358,8 @@ void TechChar::createFakeEntries(unsigned length, unsigned fakeLength)
     return;
   }
 
-  if (logger_->debugCheck(utl::CTS, "tech char", 1)) {
-    logger_->warn(CTS, 45, "Creating fake entries in the LUT.");
+  if (logger_->debugCheck(utl::CMS, "tech char", 1)) {
+    logger_->warn(CMS, 45, "Creating fake entries in the LUT.");
   }
   for (unsigned load = 1; load <= getMaxCapacitance(); ++load) {
     for (unsigned outSlew = 1; outSlew <= getMaxSlew(); ++outSlew) {
@@ -388,7 +388,7 @@ void TechChar::reportSegment(unsigned key) const
 
   debugPrint(
       logger_,
-      CTS,
+      CMS,
       "tech char",
       1,
       "    Key: {} inSlew: {} inCap: {} outSlew: {} load: {} length: {} delay: "
@@ -403,7 +403,7 @@ void TechChar::reportSegment(unsigned key) const
 
   for (unsigned idx = 0; idx < seg.getNumBuffers(); ++idx) {
     debugPrint(logger_,
-               CTS,
+               CMS,
                "tech char",
                1,
                "      location: {} buffer: {}",
@@ -422,7 +422,7 @@ void TechChar::initClockLayerResCap(float dbUnitsPerMicron)
   resPerDBU_ = resizer_->wireClkResistance(corner) * 1e-6 / dbUnitsPerMicron;
 
   if (resPerDBU_ == 0.0 || capPerDBU_ == 0.0) {
-    logger_->warn(CTS,
+    logger_->warn(CMS,
                   104,
                   "Clock wire resistance/capacitance values are zero.\nUse "
                   "set_wire_rc to set them.");
@@ -442,7 +442,7 @@ void TechChar::initCharacterization()
   // Gets the buffer masters and its in/out pins.
   std::vector<std::string> masterVector = options_->getBufferList();
   if (masterVector.empty()) {
-    logger_->error(CTS, 73, "Buffer not found. Check your -buf_list input.");
+    logger_->error(CMS, 73, "Buffer not found. Check your -buf_list input.");
   }
 
   // Announce root and sink buffers
@@ -469,7 +469,7 @@ void TechChar::initCharacterization()
     }
     if (!maxCapExist) {
       logger_->error(
-          CTS, 111, "No max capacitance found for cell {}.", master_name);
+          CMS, 111, "No max capacitance found for cell {}.", master_name);
     }
     if (maxCap >= maxBuffCap) {
       maxBuffCap = maxCap;
@@ -483,12 +483,12 @@ void TechChar::initCharacterization()
 
   if (bufMasterName.empty()) {
     logger_->error(
-        CTS,
+        CMS,
         113,
         "Characterization buffer is not defined.\n"
         "    Check that -buf_list has supported buffers from platform.");
   } else {
-    logger_->info(CTS, 49, "Characterization buffer is {}.", bufMasterName);
+    logger_->info(CMS, 49, "Characterization buffer is {}.", bufMasterName);
   }
 
   odb::dbMaster* sinkMaster
@@ -507,12 +507,12 @@ void TechChar::initCharacterization()
 
   if (!charBufIn_) {
     logger_->error(
-        CTS, 534, "Could not find buffer input port for {}.", bufMasterName);
+        CMS, 534, "Could not find buffer input port for {}.", bufMasterName);
   }
 
   if (!charBufOut_) {
     logger_->error(
-        CTS, 541, "Could not find buffer output port for {}.", bufMasterName);
+        CMS, 541, "Could not find buffer output port for {}.", bufMasterName);
   }
   // Creates the new characterization block. (Wiresegments are created here
   // instead of the main block)
@@ -551,7 +551,7 @@ void TechChar::initCharacterization()
 
   if (wirelengthsToTest_.empty()) {
     logger_->error(
-        CTS,
+        CMS,
         75,
         "Error generating the wirelengths to test.\n"
         "    Check the -wire_unit parameter or the technology files.");
@@ -571,7 +571,7 @@ void TechChar::initCharacterization()
     bool maxCapExist = false;
 
     if (!libertyCell) {
-      logger_->error(CTS, 96, "No Liberty cell found for {}.", bufMasterName);
+      logger_->error(CMS, 96, "No Liberty cell found for {}.", bufMasterName);
     } else {
       sta::LibertyPort *input, *output;
       libertyCell->bufferPorts(input, output);
@@ -586,7 +586,7 @@ void TechChar::initCharacterization()
       }
       if (!maxSlewExist) {
         logger_->error(
-            CTS, 107, "No max slew found for cell {}.", bufMasterName);
+            CMS, 107, "No max slew found for cell {}.", bufMasterName);
       }
 
       output->capacitanceLimit(sta::MinMax::max(), maxCap, maxCapExist);
@@ -595,14 +595,14 @@ void TechChar::initCharacterization()
       }
       if (!maxCapExist) {
         logger_->error(
-            CTS, 108, "No max capacitance found for cell {}.", bufMasterName);
+            CMS, 108, "No max capacitance found for cell {}.", bufMasterName);
       }
       options_->setMaxCharSlew(maxSlew);
       options_->setMaxCharCap(maxCap);
     }
     if (!libertySinkCell) {
       logger_->error(
-          CTS, 76, "No Liberty cell found for {}.", options_->getSinkBuffer());
+          CMS, 76, "No Liberty cell found for {}.", options_->getSinkBuffer());
     } else {
       sta::LibertyPort *input, *output;
       libertySinkCell->bufferPorts(input, output);
@@ -646,7 +646,7 @@ void TechChar::initCharacterization()
 
   if (loadsToTest_.empty() || slewsToTest_.empty()) {
     logger_->error(
-        CTS,
+        CMS,
         78,
         "Error generating the wirelengths to test.\n"
         "    Check the parameters -max_cap/-max_slew/-cap_inter/-slew_inter\n"
@@ -657,10 +657,11 @@ void TechChar::initCharacterization()
 void TechChar::finalizeRootSinkBuffers()
 {
   // Sink info is not available yet, so defer adjustment till later
-  logger_->info(CTS, 50, "Root buffer is {}.", options_->getRootBuffer());
-  logger_->info(CTS, 51, "Sink buffer is {}.", options_->getSinkBuffer());
+  logger_->info(CMS, 1234, "In finalizeRootSinkBuffers() this is just a test to see if flow scripts use this repo in reality.");
+  logger_->info(CMS, 50, "Root buffer is {}.", options_->getRootBuffer());
+  logger_->info(CMS, 51, "Sink buffer is {}.", options_->getSinkBuffer());
   if (options_->isSinkBufferMaxCapDerateSet()) {
-    logger_->info(CTS,
+    logger_->info(CMS,
                   53,
                   "Max cap limit derate of {:0.3f} was used to infer root or "
                   "sink buffers.",
@@ -675,11 +676,11 @@ void TechChar::trimSortBufferList(std::vector<std::string>& buffers)
     odb::dbMaster* testBuf = db_->findMaster(buffer.c_str());
     if (testBuf == nullptr) {
       logger_->error(
-          CTS, 74, "No physical master cell found for buffer {}.", buffer);
+          CMS, 74, "No physical master cell found for buffer {}.", buffer);
     }
     auto* libertyCell = db_network_->findLibertyCell(buffer.c_str());
     if (libertyCell == nullptr) {
-      logger_->error(CTS, 106, "No liberty cell found for buffer {}.", buffer);
+      logger_->error(CMS, 106, "No liberty cell found for buffer {}.", buffer);
     }
   }
 
@@ -699,7 +700,7 @@ void TechChar::trimSortBufferList(std::vector<std::string>& buffers)
       if (cap < lowCap || cap > highCap) {
         it = buffers.erase(it);
         // clang-format off
-        debugPrint(logger_, CTS, "buffering", 1, "  removing {}", buf);
+        debugPrint(logger_, CMS, "buffering", 1, "  removing {}", buf);
         // clang-format on
       } else {
         ++it;
@@ -730,7 +731,7 @@ void TechChar::trimSortBufferList(std::vector<std::string>& buffers)
     }
   }
 
-  logger_->info(CTS, 52, "The following clock buffers will be used for CTS:");
+  logger_->info(CMS, 52, "The following clock buffers will be used for CTS:");
   for (const std::string& bufName : buffers) {
     logger_->report("                    {}", bufName);
     masterNames_.emplace_back(bufName);
@@ -803,7 +804,7 @@ void TechChar::collectSlewsLoadsFromTableAxis(sta::LibertyCell* libCell,
     }
   }
 
-  if (logger_->debugCheck(utl::CTS, "tech char", 2)) {
+  if (logger_->debugCheck(utl::CMS, "tech char", 2)) {
     logger_->report("axis slews at {}", libCell->name());
     for (float slew : axisSlews) {
       logger_->report("{:0.3e} ", slew);
@@ -839,7 +840,7 @@ void TechChar::sortAndUniquify(std::vector<float>& values,
     }
   }
 
-  if (logger_->debugCheck(utl::CTS, "tech char", 2)) {
+  if (logger_->debugCheck(utl::CMS, "tech char", 2)) {
     logger_->report("sorted {} axis", name);
     for (float val : values) {
       logger_->report("{:0.3e} ", val);
@@ -868,7 +869,7 @@ void TechChar::reduceOrExpand(std::vector<float>& values, unsigned limit)
     } while (values.size() != limit);
   }
 
-  if (logger_->debugCheck(utl::CTS, "tech char", 2)) {
+  if (logger_->debugCheck(utl::CMS, "tech char", 2)) {
     logger_->report("final slew/load values");
     for (float val : values) {
       logger_->report("{:0.3e} ", val);
@@ -931,7 +932,7 @@ std::vector<TechChar::SolutionData> TechChar::createPatterns(
   std::vector<SolutionData> topologiesVector;
   odb::dbNet* net = nullptr;
   // clang-format off
-  debugPrint(logger_, CTS, "tech char", 1, "createPatterns WL:{} #nodes:{}"
+  debugPrint(logger_, CMS, "tech char", 1, "createPatterns WL:{} #nodes:{}"
              "#topo:{}", setupWirelength, numberOfNodes, numberOfTopologies);
   // clang-format on
   // For each possible topology...
@@ -966,7 +967,7 @@ std::vector<TechChar::SolutionData> TechChar::createPatterns(
         // Not a buffer, only a wire segment.
         nodesWithoutBuf++;
         // clang-format off
-        debugPrint(logger_, CTS, "tech char", 1, "  wire at node:{} topo:{}",
+        debugPrint(logger_, CMS, "tech char", 1, "  wire at node:{} topo:{}",
                    nodeIndex, solutionCounterInt);
         // clang-format on
       } else {
@@ -978,7 +979,7 @@ std::vector<TechChar::SolutionData> TechChar::createPatterns(
                                                 solutionCounter.to_string(),
                                                 wireCounter);
         // clang-format off
-        debugPrint(logger_, CTS, "tech char", 1, "  buffer {} at node:{} "
+        debugPrint(logger_, CMS, "tech char", 1, "  buffer {} at node:{} "
                    "topo:{}", bufName, nodeIndex, solutionCounterInt);
         // clang-format on
         odb::dbInst* bufInstance
@@ -1004,7 +1005,7 @@ std::vector<TechChar::SolutionData> TechChar::createPatterns(
         // (as a vector of strings).
         topology.instVector.push_back(bufInstance);
         // clang-format off
-        debugPrint(logger_, CTS, "tech char", 1, "  topo instVector size:{} "
+        debugPrint(logger_, CMS, "tech char", 1, "  topo instVector size:{} "
                    "node:{} topo:{}", topology.instVector.size(), nodeIndex,
                    solutionCounterInt);
         // clang-format on
@@ -1219,7 +1220,7 @@ void TechChar::updateBufferTopologiesOld(TechChar::SolutionData& solution)
       odb::dbInst* inst = solution.instVector[index];
       inst->swapMaster(firstMaster);
       // clang-format off
-      debugPrint(logger_, CTS, "tech char", 1, "updateBufferTopologies swap "
+      debugPrint(logger_, CMS, "tech char", 1, "updateBufferTopologies swap "
                  "from {} to {}, index:{}",
                  lastMaster->getName(), firstMaster->getName(), index);
       // clang-format on
@@ -1231,7 +1232,7 @@ void TechChar::updateBufferTopologiesOld(TechChar::SolutionData& solution)
         //(string representing the current buffer)
         std::string topologyS = solution.topologyDescriptor[topologyIndex];
         // clang-format off
-        debugPrint(logger_, CTS, "tech char", 1, "  topo:{} topoIdx:{}",
+        debugPrint(logger_, CMS, "tech char", 1, "  topo:{} topoIdx:{}",
                    topologyS, topologyIndex);
         // clang-format on
         if (!(std::find(masterNames_.begin(), masterNames_.end(), topologyS)
@@ -1239,7 +1240,7 @@ void TechChar::updateBufferTopologiesOld(TechChar::SolutionData& solution)
           if (topologyCounter == index) {
             solution.topologyDescriptor[topologyIndex] = *firstMasterItr;
             // clang-format off
-            debugPrint(logger_, CTS, "tech char", 1, "  soln topo descript at {} "
+            debugPrint(logger_, CMS, "tech char", 1, "  soln topo descript at {} "
                        "set to {}", topologyIndex, *firstMasterItr);
             // clang-format on
             break;
@@ -1257,7 +1258,7 @@ void TechChar::updateBufferTopologiesOld(TechChar::SolutionData& solution)
       inst->swapMaster(newBufMaster);
       // clang-format off
       --masterItr; 
-      debugPrint(logger_, CTS, "tech char", 1, "updateBufferTopologies swap "
+      debugPrint(logger_, CMS, "tech char", 1, "updateBufferTopologies swap "
                  "from {} to {}, index:{}",
                  *(masterItr), newBufMaster->getName(), index);
       masterItr++;
@@ -1269,7 +1270,7 @@ void TechChar::updateBufferTopologiesOld(TechChar::SolutionData& solution)
         const std::string topologyS
             = solution.topologyDescriptor[topologyIndex];
         // clang-format off
-        debugPrint(logger_, CTS, "tech char", 1, "  topo:{} topoIdx:{}",
+        debugPrint(logger_, CMS, "tech char", 1, "  topo:{} topoIdx:{}",
                    topologyS, topologyIndex);
         // clang-format on
         if (!(std::find(masterNames_.begin(), masterNames_.end(), topologyS)
@@ -1277,7 +1278,7 @@ void TechChar::updateBufferTopologiesOld(TechChar::SolutionData& solution)
           if (topologyCounter == index) {
             solution.topologyDescriptor[topologyIndex] = masterString;
             // clang-format off
-            debugPrint(logger_, CTS, "tech char", 1, "  soln topo descript at "
+            debugPrint(logger_, CMS, "tech char", 1, "  soln topo descript at "
                        "{} set to {}", topologyIndex, masterString);
             // clang-format on
             break;
@@ -1316,7 +1317,7 @@ void TechChar::updateBufferTopologies(TechChar::SolutionData& solution)
       odb::dbInst* inst = solution.instVector[nodeIndex];
       inst->swapMaster(newMaster);
       // clang-format off
-      debugPrint(logger_, CTS, "tech char", 1, "**updateBufferTopologies swap "
+      debugPrint(logger_, CMS, "tech char", 1, "**updateBufferTopologies swap "
                  "from {} to {}, index:{}", oldMaster->getName(),
                  newMaster->getName(), nodeIndex);
       // clang-format on
@@ -1333,7 +1334,7 @@ std::vector<size_t> TechChar::getCurrConfig(const SolutionData& solution)
     config.emplace_back(masterID);
   }
 
-  if (logger_->debugCheck(CTS, "tech char", 1)) {
+  if (logger_->debugCheck(CMS, "tech char", 1)) {
     std::stringstream tmp;
     tmp << "currConfig: ";
     for (unsigned i : config) {
@@ -1373,7 +1374,7 @@ std::vector<size_t> TechChar::getNextConfig(
     }
   } while (!isTopologyMonotonic(nextConfig));
 
-  if (logger_->debugCheck(CTS, "tech char", 1)) {
+  if (logger_->debugCheck(CMS, "tech char", 1)) {
     std::stringstream tmp;
     tmp << "nextConfig: ";
     for (unsigned i : nextConfig) {
@@ -1409,7 +1410,7 @@ void TechChar::swapTopologyBuffer(SolutionData& solution,
        topologyIndex++) {
     const std::string topologyS = solution.topologyDescriptor[topologyIndex];
     // clang-format off
-    debugPrint(logger_, CTS, "tech char", 1, "**topo:{} topoIdx:{}",
+    debugPrint(logger_, CMS, "tech char", 1, "**topo:{} topoIdx:{}",
                topologyS, topologyIndex);
     // clang-format on
     if (!(std::find(masterNames_.begin(), masterNames_.end(), topologyS)
@@ -1417,7 +1418,7 @@ void TechChar::swapTopologyBuffer(SolutionData& solution,
       if (topologyCounter == nodeIndex) {
         solution.topologyDescriptor[topologyIndex] = newMasterName;
         // clang-format off
-        debugPrint(logger_, CTS, "tech char", 1, "**soln topo descript at "
+        debugPrint(logger_, CMS, "tech char", 1, "**soln topo descript at "
                    "{} set to {}", topologyIndex, newMasterName);
         // clang-format on
         break;
@@ -1555,7 +1556,7 @@ void TechChar::create()
     int topoIndex = 0;
     for (SolutionData solution : topologiesVector) {
       // clang-format off
-      debugPrint(logger_, CTS, "tech char", 1, "create WL:{} of {}, "
+      debugPrint(logger_, CMS, "tech char", 1, "create WL:{} of {}, "
                  "topo:{} of {}", setupWirelength, wirelengthsToTest_.size(),
                  topoIndex, topologiesVector.size());
       // clang-format on
@@ -1597,7 +1598,7 @@ void TechChar::create()
       unsigned buffersUpdate
           = getBufferingCombo(masterNames_.size(), solution.instVector.size());
       // clang-format off
-      debugPrint(logger_, CTS, "tech char", 1, "create #bufs={} "
+      debugPrint(logger_, CMS, "tech char", 1, "create #bufs={} "
                  "#soln.instVector.size={}, #bufUpdate={}, #topo={}",
                  masterNames_.size(), solution.instVector.size(),
                  buffersUpdate, topologiesCreated);
@@ -1657,7 +1658,7 @@ void TechChar::create()
             if (logger_->debugCheck(utl::CTS, "tech char", 1)
                 && topologiesCreated % 50000 == 0) {
               debugPrint(logger_,
-                         CTS,
+                         CMS,
                          "tech char",
                          1,
                          "Number of created patterns = {}.",
@@ -1677,13 +1678,13 @@ void TechChar::create()
   }
   if (logger_->debugCheck(utl::CTS, "tech char", 1)) {
     logger_->info(
-        CTS, 39, "Number of created patterns = {}.", topologiesCreated);
+        CMS, 39, "Number of created patterns = {}.", topologiesCreated);
   }
   // Post-processing of the results.
   const std::vector<ResultData> convertedSolutions
       = characterizationPostProcess();
   compileLut(convertedSolutions);
-  if (logger_->debugCheck(CTS, "characterization", 3)) {
+  if (logger_->debugCheck(CMS, "characterization", 3)) {
     printCharacterization();
     printSolution();
   }
@@ -1724,7 +1725,7 @@ unsigned TechChar::getBufferingCombo(size_t numBuffers, size_t numNodes)
   std::pair iPair(numBuffers, numNodes);
   auto iter = bufferingComboTable_.find(iPair);
   if (iter != bufferingComboTable_.end()) {
-    if (logger_->debugCheck(CTS, "tech char", 1)) {
+    if (logger_->debugCheck(CMS, "tech char", 1)) {
       tmp << "Monotonic entries (hashed): " << iter->second << '\n';
       logger_->report(tmp.str());
     }
@@ -1746,21 +1747,21 @@ unsigned TechChar::getBufferingCombo(size_t numBuffers, size_t numNodes)
   unsigned numMonotonic = 0;
   for (const auto& row : matrix) {
     for (size_t val : row) {
-      if (logger_->debugCheck(CTS, "tech char", 1)) {
+      if (logger_->debugCheck(CMS, "tech char", 1)) {
         tmp << val << " ";
       }
     }
     if (isTopologyMonotonic(row)) {
-      if (logger_->debugCheck(CTS, "tech char", 1)) {
+      if (logger_->debugCheck(CMS, "tech char", 1)) {
         tmp << "monotonic";
       }
       numMonotonic++;
     }
-    if (logger_->debugCheck(CTS, "tech char", 1)) {
+    if (logger_->debugCheck(CMS, "tech char", 1)) {
       logger_->report(tmp.str());
     }
   }
-  if (logger_->debugCheck(CTS, "tech char", 1)) {
+  if (logger_->debugCheck(CMS, "tech char", 1)) {
     tmp << "Monotonic entries: " << numMonotonic;
     logger_->report(tmp.str());
   }

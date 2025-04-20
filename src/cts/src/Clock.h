@@ -191,6 +191,7 @@ class Clock
 
   void addSink(const std::string& name, int x, int y)
   {
+    std::cout << "TritonCTS: void addSink(const std::string& name, int x, int y) call" << std::endl;
     sinks_.emplace_back(name, "", CLOCK_SINK, x, y);
   }
 
@@ -200,6 +201,7 @@ class Clock
                odb::dbITerm* pinObj,
                float inputCap)
   {
+    std::cout << "TritonCTS: void addSink(const std::string& name, int x, int y,pinObj,inputCap) call" << std::endl;
     sinks_.emplace_back(name, "", CLOCK_SINK, x, y, pinObj, inputCap);
   }
 
@@ -210,6 +212,7 @@ class Clock
                float inputCap,
                float insDelay)
   {
+    std::cout << "TritonCTS: void addSink(const std::string& name, int x, int y,pinObj,inputCap,isDelay) call" << std::endl;
     sinks_.emplace_back(name, "", CLOCK_SINK, x, y, pinObj, inputCap, insDelay);
   }
 

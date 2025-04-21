@@ -4,7 +4,7 @@
 %{
 #include <cstdint>
 
-#include "cts/TritonCTS.h"
+#include "cms/TritonCTS.h"
 #include "CtsOptions.h"
 #include "TechChar.h"
 #include "CtsGraphics.h"
@@ -12,19 +12,19 @@
 
 namespace ord {
 // Defined in OpenRoad.i
-cts::TritonCTS *
+cms::TritonCTS *
 getTritonCts();
 }
 
-using namespace cts;
+using namespace cms;
 using ord::getTritonCts;
 %}
 
 %include "../../Exception.i"
 %include "stdint.i"
 
-%ignore cts::CtsOptions::setObserver;
-%ignore cts::CtsOptions::getObserver;
+%ignore cms::CtsOptions::setObserver;
+%ignore cms::CtsOptions::getObserver;
 
 %inline %{
 

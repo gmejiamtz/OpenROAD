@@ -17,7 +17,7 @@
 #include "sta/ParseBus.hh"
 #include "utl/Logger.h"
 
-namespace cts {
+namespace cms {
 
 Clock::Clock(const std::string& netName,
              const std::string& clockPin,

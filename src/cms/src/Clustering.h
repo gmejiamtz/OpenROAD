@@ -11,7 +11,7 @@ namespace utl {
 class Logger;
 }  // namespace utl
 
-namespace cts::CKMeans {
+namespace cms::CKMeans {
 
 using utl::Logger;
 

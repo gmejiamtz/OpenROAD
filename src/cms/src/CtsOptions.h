@@ -22,7 +22,7 @@
 namespace stt {
 class SteinerTreeBuilder;
 }
-namespace cts {
+namespace cms {
 
 class CtsOptions : public odb::dbBlockCallBackObj
 {
@@ -306,4 +306,4 @@ class CtsOptions : public odb::dbBlockCallBackObj
   MasterCount dummy_count_;
 };
 
-}  // namespace cts
+}  // namespace cms

@@ -22,11 +22,11 @@ namespace utl {
 class Logger;
 }  // namespace utl
 
-namespace cts {
+namespace cms {
 
 struct pointHash
 {
-  std::size_t operator()(const cts::Point<double>& point) const
+  std::size_t operator()(const cms::Point<double>& point) const
   {
     std::pair<double, double> dPair
         = std::make_pair(point.getX(), point.getY());
@@ -36,8 +36,8 @@ struct pointHash
 
 struct pointEqual
 {
-  bool operator()(const cts::Point<double>& p1,
-                  const cts::Point<double>& p2) const
+  bool operator()(const cms::Point<double>& p1,
+                  const cms::Point<double>& p2) const
   {
     return p1 == p2;
   }
@@ -260,4 +260,4 @@ class TreeBuilder
   odb::dbNet* topInputNet_ = nullptr;
 };
 
-}  // namespace cts
+}  // namespace cms

@@ -12,10 +12,10 @@
 #include "Clock.h"
 #include "CtsOptions.h"
 #include "TreeBuilder.h"
-#include "cts/TritonCTS.h"
+#include "cms/TritonCTS.h"
 #include "odb/db.h"
 
-namespace cts {
+namespace cms {
 
 using utl::CTS;
 
@@ -180,4 +180,4 @@ void LevelBalancer::fixTreeLevels(TreeBuilder* builder,
     }
   });
 }
-}  // namespace cts
+}  // namespace cms

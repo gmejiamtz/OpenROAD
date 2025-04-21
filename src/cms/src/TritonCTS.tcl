@@ -1,17 +1,17 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # Copyright (c) 2019-2025, The OpenROAD Authors
 
-sta::define_cmd_args "configure_cts_characterization" {[-max_cap cap] \
+sta::define_cmd_args "configure_cms_characterization" {[-max_cap cap] \
                                                        [-max_slew slew] \
                                                        [-slew_steps slew_steps] \
                                                        [-cap_steps cap_steps] \
                                                       }
 
-proc configure_cts_characterization { args } {
-  sta::parse_key_args "configure_cts_characterization" args \
+proc configure_cms_characterization { args } {
+  sta::parse_key_args "configure_cms_characterization" args \
     keys {-max_cap -max_slew -slew_steps -cap_steps} flags {}
 
-  sta::check_argc_eq0 "configure_cts_characterization" $args
+  sta::check_argc_eq0 "configure_cms_characterization" $args
 
   if { [info exists keys(-max_cap)] } {
     set max_cap_value $keys(-max_cap)
@@ -36,7 +36,7 @@ proc configure_cts_characterization { args } {
   }
 }
 
-sta::define_cmd_args "clock_tree_synthesis" {[-wire_unit unit]
+sta::define_cmd_args "clock_mesh_synthesis" {[-wire_unit unit]
                                              [-buf_list buflist] \
                                              [-root_buf buf] \
                                              [-clk_nets nets] \
@@ -61,8 +61,8 @@ sta::define_cmd_args "clock_tree_synthesis" {[-wire_unit unit]
                                              [-library] \
 } ;# checker off
 
-proc clock_tree_synthesis { args } {
-  sta::parse_key_args "clock_tree_synthesis" args \
+proc clock_mesh_synthesis { args } {
+  sta::parse_key_args "clock_mesh_synthesis" args \
     keys {-root_buf -buf_list -wire_unit -clk_nets -sink_clustering_size \
           -num_static_layers -sink_clustering_buffer \
           -distance_between_buffers -branching_point_buffers_distance \
@@ -75,11 +75,11 @@ proc clock_tree_synthesis { args } {
            -dont_use_dummy_load
   } ;# checker off
 
-  sta::check_argc_eq0 "clock_tree_synthesis" $args
+  sta::check_argc_eq0 "clock_mesh_synthesis" $args
 
   if { [info exists keys(-library)] } {
     set cts_library $keys(-library)
-    cts::set_cts_library $cts_library
+    cms::set_cts_library $cts_library
   }
 
   if { [info exists flags(-post_cts_disable)] } {
@@ -206,13 +206,13 @@ proc clock_tree_synthesis { args } {
   cts::run_triton_cts
 }
 
-sta::define_cmd_args "report_cts" {[-out_file file] \
+sta::define_cmd_args "report_cms" {[-out_file file] \
                                   }
-proc report_cts { args } {
-  sta::parse_key_args "report_cts" args \
+proc report_cms { args } {
+  sta::parse_key_args "report_cms" args \
     keys {-out_file} flags {}
 
-  sta::check_argc_eq0 "report_cts" $args
+  sta::check_argc_eq0 "report_cms" $args
 
   if { [info exists keys(-out_file)] } {
     set outFile $keys(-out_file)
@@ -222,12 +222,12 @@ proc report_cts { args } {
   cts::report_cts_metrics
 }
 
-namespace eval cts {
-proc clock_tree_synthesis_debug { args } {
-  sta::parse_key_args "clock_tree_synthesis_debug" args \
+namespace eval cms {
+proc clock_mesh_synthesis_debug { args } {
+  sta::parse_key_args "clock_mesh_synthesis_debug" args \
     keys {} flags {-plot} ;# checker off
 
-  sta::check_argc_eq0 "clock_tree_synthesis_debug" $args
+  sta::check_argc_eq0 "clock_mesh_synthesis_debug" $args
   cts::set_plot_option [info exists flags(-plot)]
 
   cts::set_debug_cmd

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) 2019-2025, The OpenROAD Authors
 
-#include "cts/TritonCTS.h"
+#include "cms/TritonCTS.h"
 
 #include <algorithm>
 #include <cctype>
@@ -43,7 +43,7 @@
 #include "sta/Sdc.hh"
 #include "utl/Logger.h"
 
-namespace cts {
+namespace cms {
 
 using utl::CTS;
 
@@ -2437,4 +2437,4 @@ odb::dbInst* TritonCTS::insertDelayBuffer(odb::dbInst* driver,
   return newBuf;
 }
 
-}  // namespace cts
+}  // namespace cms

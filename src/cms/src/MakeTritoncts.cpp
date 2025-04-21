@@ -1,18 +1,18 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) 2019-2025, The OpenROAD Authors
 
-#include "cts/MakeTritoncts.h"
+#include "cms/MakeTritoncts.h"
 
 #include "CtsOptions.h"
-#include "cts/TritonCTS.h"
+#include "cms/TritonCTS.h"
 #include "odb/db.h"
 #include "ord/OpenRoad.hh"
 #include "utl/decode.h"
 
-namespace cts {
+namespace cms {
 // Tcl files encoded into strings.
 extern const char* cts_tcl_inits[];
-}  // namespace cts
+}  // namespace cms
 
 extern "C" {
 extern int Cts_Init(Tcl_Interp* interp);
@@ -39,7 +39,7 @@ void initTritonCts(OpenRoad* openroad)
                                  openroad->getResizer());
 }
 
-void deleteTritonCts(cts::TritonCTS* tritoncts)
+void deleteTritonCts(cms::TritonCTS* tritoncts)
 {
   delete tritoncts;
 }

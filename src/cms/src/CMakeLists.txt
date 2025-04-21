@@ -6,7 +6,7 @@ include("openroad")
 # https://github.com/The-OpenROAD-Project/OpenROAD/issues/1186
 find_package(LEMON NAMES LEMON lemon REQUIRED)
 
-add_library(cts_lib
+add_library(cms_lib
     Clock.cpp
     TreeBuilder.cpp
     HTreeBuilder.cpp
@@ -18,19 +18,19 @@ add_library(cts_lib
     CtsOptions.cpp
 )
 
-swig_lib(NAME      cts
-         NAMESPACE cts
+swig_lib(NAME      cms
+         NAMESPACE cms
          I_FILE    TritonCTS.i
          SCRIPTS   TritonCTS.tcl
 )
 
-target_sources(cts
+target_sources(cms
   PRIVATE
     MakeTritoncts.cpp
     CtsGraphics.cpp
 )
 
-target_include_directories(cts_lib
+target_include_directories(cms_lib
   PUBLIC
     ../include
   PRIVATE
@@ -39,7 +39,7 @@ target_include_directories(cts_lib
   ${Boost_INCLUDE_DIRS}
  )
 
-target_include_directories(cts
+target_include_directories(cms
   PUBLIC
     ../include
   PRIVATE
@@ -47,7 +47,7 @@ target_include_directories(cts
   ${Boost_INCLUDE_DIRS}
  )
 
-target_link_libraries(cts_lib
+target_link_libraries(cms_lib
   PUBLIC
     rsz_lib
   PRIVATE
@@ -58,10 +58,10 @@ target_link_libraries(cts_lib
     utl_lib
 )
 
-target_link_libraries(cts
+target_link_libraries(cms
   PRIVATE
     odb
-    cts_lib
+    cms_lib
     dbSta_lib
     rsz_lib
     OpenSTA
@@ -69,28 +69,28 @@ target_link_libraries(cts
  )
 
 messages(
-  TARGET cts
+  TARGET cms
   OUTPUT_DIR ..
 )
 
 if (Python3_FOUND AND BUILD_PYTHON)
-  swig_lib(NAME          cts_py
-           NAMESPACE     cts
+  swig_lib(NAME          cms_py
+           NAMESPACE     cms
            LANGUAGE      python
            I_FILE        TritonCTS-py.i
-           SWIG_INCLUDES ${PROJECT_SOURCE_DIR}/../include/cts
+           SWIG_INCLUDES ${PROJECT_SOURCE_DIR}/../include/cms
                          ${PROJECT_SOURCE_DIR}
-           SCRIPTS       ${CMAKE_CURRENT_BINARY_DIR}/cts_py.py
+           SCRIPTS       ${CMAKE_CURRENT_BINARY_DIR}/cms_py.py
   )
 
-  target_include_directories(cts_py
+  target_include_directories(cms_py
     PUBLIC
       .
   )
   
-  target_link_libraries(cts_py
+  target_link_libraries(cms_py
     PUBLIC
-      cts
+      cms
       dbSta
       OpenSTA
       odb

@@ -9,7 +9,7 @@
 
 #include "utl/Logger.h"
 
-namespace cts {
+namespace cms {
 
 inline bool fuzzyEqual(double x1, double x2, double epsilon = 1e-6)
 {
@@ -186,4 +186,4 @@ class Box
 
 using utl::format_as;
 
-}  // namespace cts
+}  // namespace cms

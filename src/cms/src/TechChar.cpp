@@ -28,7 +28,7 @@
 #include "sta/Units.hh"
 #include "utl/Logger.h"
 
-namespace cts {
+namespace cms {
 
 using utl::CTS;
 
@@ -1788,4 +1788,4 @@ bool TechChar::isTopologyMonotonic(const std::vector<size_t>& row)
   return monotonic;
 }
 
-}  // namespace cts
+}  // namespace cms

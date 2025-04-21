@@ -11,7 +11,7 @@
 
 #include "utl/Logger.h"
 
-namespace cts {
+namespace cms {
 
 void CtsGraphics::initializeWithClock(HTreeBuilder* h_tree_builder,
                                       Clock& clock)

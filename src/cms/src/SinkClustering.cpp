@@ -18,7 +18,7 @@
 #include "stt/SteinerTreeBuilder.h"
 #include "utl/Logger.h"
 
-namespace cts {
+namespace cms {
 
 using std::vector;
 using utl::CTS;

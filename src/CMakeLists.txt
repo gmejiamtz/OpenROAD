@@ -256,6 +256,7 @@ add_subdirectory(fin)
 add_subdirectory(ppl)
 add_subdirectory(rmp)
 add_subdirectory(cts)
+add_subdirectory(cms)
 add_subdirectory(grt)
 add_subdirectory(tap)
 add_subdirectory(rcx)
@@ -319,6 +320,7 @@ target_link_libraries(openroad
   rcx
   rmp
   cts
+  cms
   grt
   tap
   gui
@@ -397,6 +399,7 @@ if (Python3_FOUND AND BUILD_PYTHON)
     ppl_py
     tap_py
     cts_py
+    cms_py
     drt_py
     dpo_py
     fin_py

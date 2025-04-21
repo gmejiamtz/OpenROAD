@@ -20,9 +20,9 @@ extern int Cts_Init(Tcl_Interp* interp);
 
 namespace ord {
 
-cts::TritonCTS* makeTritonCts()
+cms::TritonCTS* makeTritonCts()
 {
-  return new cts::TritonCTS();
+  return new cms::TritonCTS();
 }
 
 void initTritonCts(OpenRoad* openroad)
@@ -30,7 +30,7 @@ void initTritonCts(OpenRoad* openroad)
   Tcl_Interp* tcl_interp = openroad->tclInterp();
   // Define swig TCL commands.
   Cts_Init(tcl_interp);
-  utl::evalTclInit(tcl_interp, cts::cts_tcl_inits);
+  utl::evalTclInit(tcl_interp, cms::cts_tcl_inits);
   openroad->getTritonCts()->init(openroad->getLogger(),
                                  openroad->getDb(),
                                  openroad->getDbNetwork(),

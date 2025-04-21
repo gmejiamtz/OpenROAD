@@ -64,4 +64,4 @@ class Clustering
   std::optional<std::pair<float, float>> branching_point_;
 };
 
-}  // namespace cts::CKMeans
+}  // namespace cms::CKMeans

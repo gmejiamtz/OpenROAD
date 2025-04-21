@@ -15,24 +15,24 @@ proc configure_cms_characterization { args } {
 
   if { [info exists keys(-max_cap)] } {
     set max_cap_value $keys(-max_cap)
-    cts::set_max_char_cap $max_cap_value
+    cms::set_max_char_cap $max_cap_value
   }
 
   if { [info exists keys(-max_slew)] } {
     set max_slew_value $keys(-max_slew)
-    cts::set_max_char_slew $max_slew_value
+    cms::set_max_char_slew $max_slew_value
   }
 
   if { [info exists keys(-slew_steps)] } {
     set steps $keys(-slew_steps)
     sta::check_cardinal "-slew_steps" $steps
-    cts::set_slew_steps $slew
+    cms::set_slew_steps $slew
   }
 
   if { [info exists keys(-cap_steps)] } {
     set steps $keys(-cap_steps)
     sta::check_cardinal "-cap_steps" $steps
-    cts::set_cap_steps $cap
+    cms::set_cap_steps $cap
   }
 }
 
@@ -86,65 +86,65 @@ proc clock_mesh_synthesis { args } {
     utl::warn CTS 115 "-post_cts_disable is obsolete."
   }
 
-  cts::set_sink_clustering [info exists flags(-sink_clustering_enable)]
+  cms::set_sink_clustering [info exists flags(-sink_clustering_enable)]
 
   if { [info exists keys(-sink_clustering_size)] } {
     set size $keys(-sink_clustering_size)
-    cts::set_sink_clustering_size $size
+    cms::set_sink_clustering_size $size
   }
 
   if { [info exists keys(-sink_clustering_max_diameter)] } {
     set distance $keys(-sink_clustering_max_diameter)
-    cts::set_clustering_diameter $distance
+    cms::set_clustering_diameter $distance
   }
 
-  cts::set_balance_levels [info exists flags(-balance_levels)]
+  cms::set_balance_levels [info exists flags(-balance_levels)]
 
   if { [info exists keys(-sink_clustering_levels)] } {
     set levels $keys(-sink_clustering_levels)
-    cts::set_sink_clustering_levels $levels
+    cms::set_sink_clustering_levels $levels
   }
 
   if { [info exists keys(-num_static_layers)] } {
     set num $keys(-num_static_layers)
-    cts::set_num_static_layers $num
+    cms::set_num_static_layers $num
   }
 
   if { [info exists keys(-distance_between_buffers)] } {
     set distance $keys(-distance_between_buffers)
-    cts::set_distance_between_buffers [ord::microns_to_dbu $distance]
+    cms::set_distance_between_buffers [ord::microns_to_dbu $distance]
   }
 
   if { [info exists keys(-branching_point_buffers_distance)] } {
     set distance $keys(-branching_point_buffers_distance)
-    cts::set_branching_point_buffers_distance [ord::microns_to_dbu $distance]
+    cms::set_branching_point_buffers_distance [ord::microns_to_dbu $distance]
   }
 
   if { [info exists keys(-clustering_exponent)] } {
     set exponent $keys(-clustering_exponent)
-    cts::set_clustering_exponent $exponent
+    cms::set_clustering_exponent $exponent
   }
 
   if { [info exists keys(-clustering_unbalance_ratio)] } {
     set unbalance $keys(-clustering_unbalance_ratio)
-    cts::set_clustering_unbalance_ratio $unbalance
+    cms::set_clustering_unbalance_ratio $unbalance
   }
 
   if { [info exists keys(-buf_list)] } {
     set buf_list $keys(-buf_list)
-    cts::set_buffer_list $buf_list
+    cms::set_buffer_list $buf_list
   } else {
-    cts::set_buffer_list ""
+    cms::set_buffer_list ""
   }
 
   if { [info exists keys(-wire_unit)] } {
     set wire_unit $keys(-wire_unit)
-    cts::set_wire_segment_distance_unit $wire_unit
+    cms::set_wire_segment_distance_unit $wire_unit
   }
 
   if { [info exists keys(-clk_nets)] } {
     set clk_nets $keys(-clk_nets)
-    set fail [cts::set_clock_nets $clk_nets]
+    set fail [cms::set_clock_nets $clk_nets]
     if { $fail } {
       utl::error CTS 56 "Error when finding -clk_nets in DB."
     }
@@ -152,21 +152,21 @@ proc clock_mesh_synthesis { args } {
 
   if { [info exists keys(-tree_buf)] } {
     set buf $keys(-tree_buf)
-    cts::set_tree_buf $buf
+    cms::set_tree_buf $buf
   }
 
   if { [info exists keys(-root_buf)] } {
     set root_buf $keys(-root_buf)
-    cts::set_root_buffer $root_buf
+    cms::set_root_buffer $root_buf
   } else {
-    cts::set_root_buffer ""
+    cms::set_root_buffer ""
   }
 
   if { [info exists keys(-sink_clustering_buffer)] } {
     set sink_buf $keys(-sink_clustering_buffer)
-    cts::set_sink_buffer $sink_buf
+    cms::set_sink_buffer $sink_buf
   } else {
-    cts::set_sink_buffer ""
+    cms::set_sink_buffer ""
   }
 
   if { [info exists keys(-sink_buffer_max_cap_derate)] } {
@@ -174,7 +174,7 @@ proc clock_mesh_synthesis { args } {
     if { $derate > 1.0 || $derate < 0.0 } {
       utl::error CTS 109 "sink_buffer_max_cap_derate needs to be between 0 and 1.0."
     }
-    cts::set_sink_buffer_max_cap_derate $derate
+    cms::set_sink_buffer_max_cap_derate $derate
   }
 
   if { [info exists keys(-delay_buffer_derate)] } {
@@ -182,7 +182,7 @@ proc clock_mesh_synthesis { args } {
     if { $buffer_derate < 0.0 } {
       utl::error CTS 123 "delay_buffer_derate needs to be greater than or equal to 0."
     }
-    cts::set_delay_buffer_derate $buffer_derate
+    cms::set_delay_buffer_derate $buffer_derate
   }
 
   if { [info exists flags(-obstruction_aware)] } {
@@ -190,20 +190,20 @@ proc clock_mesh_synthesis { args } {
   }
 
   if { [info exists flags(-no_obstruction_aware)] } {
-    cts::set_obstruction_aware false
+    cms::set_obstruction_aware false
   }
   if { [info exists flags(-dont_use_dummy_load)] } {
-    cts::set_dummy_load false
+    cms::set_dummy_load false
   } else {
-    cts::set_dummy_load true
+    cms::set_dummy_load true
   }
 
-  cts::set_apply_ndr [info exists flags(-apply_ndr)]
+  cms::set_apply_ndr [info exists flags(-apply_ndr)]
 
   if { [ord::get_db_block] == "NULL" } {
     utl::error CTS 103 "No design block found."
   }
-  cts::run_triton_cts
+  cms::run_triton_cts
 }
 
 sta::define_cmd_args "report_cms" {[-out_file file] \
@@ -216,10 +216,10 @@ proc report_cms { args } {
 
   if { [info exists keys(-out_file)] } {
     set outFile $keys(-out_file)
-    cts::set_metric_output $outFile
+    cms::set_metric_output $outFile
   }
 
-  cts::report_cts_metrics
+  cms::report_cts_metrics
 }
 
 namespace eval cms {
@@ -228,8 +228,8 @@ proc clock_mesh_synthesis_debug { args } {
     keys {} flags {-plot} ;# checker off
 
   sta::check_argc_eq0 "clock_mesh_synthesis_debug" $args
-  cts::set_plot_option [info exists flags(-plot)]
+  cms::set_plot_option [info exists flags(-plot)]
 
-  cts::set_debug_cmd
+  cms::set_debug_cmd
 }
 }

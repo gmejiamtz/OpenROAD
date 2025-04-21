@@ -37,13 +37,13 @@ or_integration_tests(
 # Skipped
 #cts_man_tcl_check
 #cts_readme_msgs_check
-add_executable(cts_unittest cts_unittest.cc)
-target_include_directories(cts_unittest
+add_executable(cms_unittest cts_unittest.cc)
+target_include_directories(cms_unittest
   PUBLIC
     ${OPENROAD_HOME}
 )
 
-target_link_libraries(cts_unittest
+target_link_libraries(cms_unittest
     GTest::gtest
     GTest::gtest_main
     cts_lib
@@ -53,9 +53,9 @@ target_link_libraries(cts_unittest
     odb
 )
 
-gtest_discover_tests(cts_unittest
+gtest_discover_tests(cms_unittest
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-add_dependencies(build_and_test cts_unittest)
+add_dependencies(build_and_test cms_unittest)
 

@@ -89,4 +89,4 @@ class LevelBalancer
   double wireSegmentUnit_;
 };
 
-}  // namespace cts
+}  // namespace cms

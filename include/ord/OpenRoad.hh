@@ -39,7 +39,7 @@ namespace rmp {
 class Restructure;
 }
 
-namespace cts {
+namespace cms {
 class TritonCTS;
 }
 

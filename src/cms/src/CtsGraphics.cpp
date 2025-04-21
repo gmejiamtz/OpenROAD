@@ -170,4 +170,4 @@ bool CtsGraphics::guiActive()
   return gui::Gui::enabled();
 }
 
-}  // namespace cts
+}  // namespace cms

@@ -128,4 +128,4 @@ void Clock::forEachClockBuffer(const std::function<void(ClockInst&)>& func)
   }
 }
 
-}  // namespace cts
+}  // namespace cms

@@ -100,4 +100,4 @@ class SinkClustering
   double bestSolutionCost_ = std::numeric_limits<double>::max();
 };
 
-}  // namespace cts
+}  // namespace cms

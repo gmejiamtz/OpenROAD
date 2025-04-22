@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) 2019-2025, The OpenROAD Authors
 
-#include "cts/MakeTritoncts.h"
+#include "cms/MakeTritoncts.h"
 
 #include "CtsOptions.h"
-#include "cts/TritonCTS.h"
+#include "cms/TritonCTS.h"
 #include "odb/db.h"
 #include "ord/OpenRoad.hh"
 #include "utl/decode.h"

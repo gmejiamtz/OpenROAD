@@ -4,7 +4,7 @@
 %{
 #include <cstdint>
 
-#include "cts/TritonCTS.h"
+#include "cms/TritonCTS.h"
 #include "CtsOptions.h"
 #include "TechChar.h"
 #include "CtsGraphics.h"

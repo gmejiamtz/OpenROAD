@@ -16,7 +16,8 @@
 #endif
 
 #include "ant/MakeAntennaChecker.hh"
-#include "cts/MakeTritoncts.h"
+//#include "cts/MakeTritoncts.h"
+#include "cms/MakeTritoncts.h"
 #include "db_sta/MakeDbSta.hh"
 #include "db_sta/dbNetwork.hh"
 #include "db_sta/dbReadVerilog.hh"

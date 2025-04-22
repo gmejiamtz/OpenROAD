@@ -12,7 +12,7 @@
 #include "Clock.h"
 #include "CtsOptions.h"
 #include "TreeBuilder.h"
-#include "cts/TritonCTS.h"
+#include "cms/TritonCTS.h"
 #include "odb/db.h"
 
 namespace cts {

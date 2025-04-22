@@ -2,7 +2,7 @@
 // Copyright (c) 2022-2025, The OpenROAD Authors
 
 %{
-#include "cts/TritonCTS.h"
+#include "cms/TritonCTS.h"
 #include "CtsOptions.h"
 #include "TechChar.h"
 #include "ord/OpenRoad.hh"
@@ -21,4 +21,4 @@ using namespace cts;
 %ignore cts::CtsOptions::getObserver;
 
 %include "CtsOptions.h"
-%include "cts/TritonCTS.h"
+%include "cms/TritonCTS.h"

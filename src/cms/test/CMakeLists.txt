@@ -46,7 +46,7 @@ target_include_directories(cms_unittest
 target_link_libraries(cms_unittest
     GTest::gtest
     GTest::gtest_main
-    cts_lib
+    cms_lib
     utl_lib
     dbSta_lib
     OpenSTA

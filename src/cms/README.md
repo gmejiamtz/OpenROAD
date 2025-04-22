@@ -1,4 +1,4 @@
-# Clock Tree Synthesis
+# Clock Mesh Synthesis
 
 The clock tree synthesis module in OpenROAD (`cts`) is based on TritonCTS
 2.0. It is available from the `clock_tree_synthesis` command. TritonCTS 2.0

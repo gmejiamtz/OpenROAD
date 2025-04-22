@@ -68,7 +68,7 @@ void SinkClustering::normalizePoints(float maxDiameter)
       = techChar_->getCapPerDBU() * scaleFactor_ * std::min(xSpan_, ySpan_);
 
   // clang-format off
-  debugPrint(logger_, CTS, "clustering", 1, "normalizePoints: "
+  debugPrint(logger_, CMS, "clustering", 1, "normalizePoints: "
              "maxInternalDiameter_:{} xSpan:{} ySpan:{}",
              maxInternalDiameter_, xSpan_, ySpan_);
   // clang-format on
@@ -83,7 +83,7 @@ void SinkClustering::computeAllThetas()
       thetaIndexVector_.emplace_back(theta, idx);
     }
     // clang-format off
-    debugPrint(logger_, CTS, "clustering", 1, "SinkClustering::computeAllThetas:"
+    debugPrint(logger_, CMS, "clustering", 1, "SinkClustering::computeAllThetas:"
                " thetaIndexVector_ has {} elems", thetaIndexVector_.size());
     // clang-format on
   }
@@ -143,7 +143,7 @@ unsigned SinkClustering::numVertex(const unsigned x, const unsigned y) const
     return 3;
   }
 
-  logger_->error(CTS, 58, "Invalid parameters in {}.", __func__);
+  logger_->error(CMS, 58, "Invalid parameters in {}.", __func__);
 
   // avoid warn message
   return 4;
@@ -158,7 +158,7 @@ void SinkClustering::run(const unsigned groupSize,
   scaleFactor_ = scaleFactor;
 
   // clang-format off
-  debugPrint(logger_, CTS, "clustering", 1, "SinkClustering::run points_ "
+  debugPrint(logger_, CMS, "clustering", 1, "SinkClustering::run points_ "
              "has {} elems", points_.size());
   // clang-format on
   if (firstRun_) {
@@ -171,7 +171,7 @@ void SinkClustering::run(const unsigned groupSize,
   computeAllThetas();
   sortPoints();
   bool bestSolutionFound = findBestMatching(groupSize);
-  if (logger_->debugCheck(CTS, "Stree", 1)) {
+  if (logger_->debugCheck(CMS, "Stree", 1)) {
     writePlotFile(groupSize);
   }
 
@@ -199,7 +199,7 @@ bool SinkClustering::findBestMatching(const unsigned groupSize)
 
   if (useMaxCapLimit_) {
     debugPrint(logger_,
-               CTS,
+               CMS,
                "Stree",
                1,
                "Clustering with max cap limit of {:.3e}",
@@ -250,7 +250,7 @@ bool SinkClustering::findBestMatching(const unsigned groupSize)
                             capCost,
                             groupSize)) {
           debugPrint(logger_,
-                     CTS,
+                     CMS,
                      "Stree",
                      4,
                      "Created cluster of size {}, dia {:.3}, cap {:.3e}",
@@ -324,7 +324,7 @@ bool SinkClustering::findBestMatching(const unsigned groupSize)
                           capCost,
                           groupSize)) {
         debugPrint(logger_,
-                   CTS,
+                   CMS,
                    "Stree",
                    4,
                    "Created cluster of size {}, dia {:.3}, cap {:.3e}",
@@ -358,7 +358,7 @@ bool SinkClustering::findBestMatching(const unsigned groupSize)
 
   // Find the solution with minimum cost.
   for (unsigned j = 1; j < groupSize; ++j) {
-    if (logger_->debugCheck(CTS, "clustering", 1)) {
+    if (logger_->debugCheck(CMS, "clustering", 1)) {
       // clang-format off
       logger_->report("Solution from group has {:0.3f} cost and {}"
                       " clustered sinks", j, costs[j], solutions[j].size());
@@ -371,7 +371,7 @@ bool SinkClustering::findBestMatching(const unsigned groupSize)
     }
   }
   debugPrint(logger_,
-             CTS,
+             CMS,
              "Stree",
              2,
              "Best solution cost = {:.3}",
@@ -380,12 +380,12 @@ bool SinkClustering::findBestMatching(const unsigned groupSize)
   if (bestSolutionFound) {
     bestSolution_ = solutions[bestSolution];
     // clang-format off
-    debugPrint(logger_, CTS, "clustering", 1, "Best solution from group "
+    debugPrint(logger_, CMS, "clustering", 1, "Best solution from group "
                "{} has cost of {:0.3f} and size of {}", bestSolution,
                bestSolutionCost_, bestSolution_.size());
     // clang-format on
   }
-  if (logger_->debugCheck(CTS, "clustering", 2)) {
+  if (logger_->debugCheck(CMS, "clustering", 2)) {
     size_t solnIndex = 0;
     for (const std::vector<unsigned>& soln : bestSolution_) {
       std::ostringstream s;
@@ -393,7 +393,7 @@ bool SinkClustering::findBestMatching(const unsigned groupSize)
       for (const unsigned i : soln) {
         s << i << " ";
       }
-      logger_->debug(CTS, "clustering", "{}", s.str());
+      logger_->debug(CMS, "clustering", "{}", s.str());
       ++solnIndex;
     }
   }

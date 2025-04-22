@@ -452,7 +452,7 @@ void HTreeBuilder::findLegalLocations(const Point<double>& parentPoint,
   addCandidateLoc((y1 - by) / m + bx, y1, parentPoint, x1, y1, x2, y2, points);
   addCandidateLoc((y2 - by) / m + bx, y2, parentPoint, x1, y1, x2, y2, points);
   // clang-format off
-  if (logger_->debugCheck(utl::CMS, "legalizer", 3)) {
+  if (logger_->debugCheck(utl::CTS, "legalizer", 3)) {
     logger_->report("    branchPt:{} is not legal, parentPt:{} blockages:({:0.3f} {:0.3f}) "
         "({:0.3f} {:0.3f})", branchPoint, parentPoint, x1, y1, x2, y2);
     for (Point<double> point : points) {
@@ -482,7 +482,7 @@ Point<double> HTreeBuilder::findBestLegalLocation(
     dist += computeDist(loc, branchPoint);
     double diff = abs(dist - targetDist);
     // clang-format off
-    if (logger_->debugCheck(utl::CMS, "legalizer", 3)) {
+    if (logger_->debugCheck(utl::CTS, "legalizer", 3)) {
       logger_->report("      Loc {}: curr dist={:0.3f} target dist={:0.3f} sink"
 		      " dist={:0.3f}", loc, dist, targetDist,
 		      weightedDistance(loc, branchPoint, sinks));
@@ -1026,7 +1026,7 @@ void HTreeBuilder::legalizeDummy()
 
 void HTreeBuilder::legalize()
 {
-  if (logger_->debugCheck(utl::CMS, "legalizer", 3)) {
+  if (logger_->debugCheck(utl::CTS, "legalizer", 3)) {
     logger_->report("HTree before legalization -------");
     printHTree();
   }
@@ -1075,7 +1075,7 @@ void HTreeBuilder::legalize()
 
       double leng = computeDist(branchPoint, parentPoint);
       // clang-format off
-      if (logger_->debugCheck(utl::CMS, "legalizer", 3)) {
+      if (logger_->debugCheck(utl::CTS, "legalizer", 3)) {
         logger_->report("  HTree level*{}* bufId*{}*, parent:{}, branch:{}, "
 			"leng:{:0.3f}, sinks:{}", levelIdx, bufferIdx,
 			parentPoint, branchPoint, leng, sinks.size());
@@ -1142,7 +1142,7 @@ void HTreeBuilder::legalize()
   // no sinks (still needed?)
   legalizeDummy();
 
-  if (logger_->debugCheck(utl::CMS, "legalizer", 3)) {
+  if (logger_->debugCheck(utl::CTS, "legalizer", 3)) {
     logger_->report("HTree after legalization -------");
     printHTree();
   }
@@ -1218,7 +1218,7 @@ void HTreeBuilder::run()
   clock_.setMaxLevel(topologyForEachLevel_.size());
 
   if (options_->getPlotSolution()
-      || logger_->debugCheck(utl::CMS, "HTree", 2)) {
+      || logger_->debugCheck(utl::CTS, "HTree", 2)) {
     plotSolution();
   }
 

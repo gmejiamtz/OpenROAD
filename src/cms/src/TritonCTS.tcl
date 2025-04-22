@@ -78,8 +78,8 @@ proc clock_mesh_synthesis { args } {
   sta::check_argc_eq0 "clock_mesh_synthesis" $args
 
   if { [info exists keys(-library)] } {
-    set cts_library $keys(-library)
-    cms::set_cts_library $cts_library
+    set cms_library $keys(-library)
+    cms::set_cms_library $cms_library
   }
 
   if { [info exists flags(-post_cts_disable)] } {

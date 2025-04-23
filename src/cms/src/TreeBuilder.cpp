@@ -17,7 +17,7 @@
 #include "odb/geom_boost.h"
 #include "utl/Logger.h"
 
-namespace cts {
+namespace cms {
 
 using utl::CMS;
 
@@ -308,4 +308,4 @@ void TreeBuilder::commitMoveLoc(const Point<double>& oldLoc,
   // clang-format on
 }
 
-}  // namespace cts
+}  // namespace cms

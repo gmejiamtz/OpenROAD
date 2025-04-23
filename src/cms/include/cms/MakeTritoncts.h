@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace cts {
+namespace cms {
 class TritonCTS;
 }
 
@@ -11,10 +11,10 @@ namespace ord {
 
 class OpenRoad;
 
-cts::TritonCTS* makeTritonCts();
+cms::TritonCTS* makeTritonCts();
 
 void initTritonCts(OpenRoad* openroad);
 
-void deleteTritonCts(cts::TritonCTS* tritoncts);
+void deleteTritonCts(cms::TritonCTS* tritoncts);
 
 }  // namespace ord

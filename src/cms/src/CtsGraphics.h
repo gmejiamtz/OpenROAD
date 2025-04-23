@@ -17,7 +17,7 @@ namespace utl {
 class Logger;
 }
 
-namespace cts {
+namespace cms {
 
 class HTreeBuilder;
 class SinkClustering;
@@ -53,4 +53,4 @@ class CtsGraphics : public gui::Renderer, public CtsObserver
   std::vector<Point<double>> points_;  // used for sink_clustering
 };
 
-}  // namespace cts
+}  // namespace cms

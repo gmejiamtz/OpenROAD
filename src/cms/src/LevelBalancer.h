@@ -19,7 +19,7 @@ namespace utl {
 class Logger;
 }  // namespace utl
 
-namespace cts {
+namespace cms {
 
 using utl::Logger;
 
@@ -89,4 +89,4 @@ class LevelBalancer
   double wireSegmentUnit_;
 };
 
-}  // namespace cts
+}  // namespace cms

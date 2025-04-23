@@ -18,7 +18,7 @@
 #include "stt/SteinerTreeBuilder.h"
 #include "utl/Logger.h"
 
-namespace cts {
+namespace cms {
 
 using std::vector;
 using utl::CMS;
@@ -481,4 +481,4 @@ double SinkClustering::getWireLength(const vector<Point<double>>& points) const
   return wl / double(options_->getDbUnits());
 }
 
-}  // namespace cts
+}  // namespace cms

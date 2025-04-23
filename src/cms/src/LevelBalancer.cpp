@@ -15,7 +15,7 @@
 #include "cms/TritonCTS.h"
 #include "odb/db.h"
 
-namespace cts {
+namespace cms {
 
 using utl::CMS;
 
@@ -180,4 +180,4 @@ void LevelBalancer::fixTreeLevels(TreeBuilder* builder,
     }
   });
 }
-}  // namespace cts
+}  // namespace cms

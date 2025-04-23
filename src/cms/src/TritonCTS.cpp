@@ -43,7 +43,7 @@
 #include "sta/Sdc.hh"
 #include "utl/Logger.h"
 
-namespace cts {
+namespace cms {
 
 using utl::CMS;
 
@@ -2437,4 +2437,4 @@ odb::dbInst* TritonCTS::insertDelayBuffer(odb::dbInst* driver,
   return newBuf;
 }
 
-}  // namespace cts
+}  // namespace cms

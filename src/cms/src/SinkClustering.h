@@ -18,7 +18,7 @@ namespace utl {
 class Logger;
 }  // namespace utl
 
-namespace cts {
+namespace cms {
 
 using utl::Logger;
 
@@ -100,4 +100,4 @@ class SinkClustering
   double bestSolutionCost_ = std::numeric_limits<double>::max();
 };
 
-}  // namespace cts
+}  // namespace cms

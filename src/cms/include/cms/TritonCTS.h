@@ -36,7 +36,7 @@ namespace stt {
 class SteinerTreeBuilder;
 }
 
-namespace cts {
+namespace cms {
 
 using utl::Logger;
 
@@ -228,4 +228,4 @@ class TritonCTS
   unsigned delayBufIndex_ = 0;
 };
 
-}  // namespace cts
+}  // namespace cms

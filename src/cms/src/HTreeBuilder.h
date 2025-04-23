@@ -15,7 +15,7 @@
 #include "CtsOptions.h"
 #include "TreeBuilder.h"
 
-namespace cts {
+namespace cms {
 class Graphics;
 
 class SegmentBuilder
@@ -376,4 +376,4 @@ class HTreeBuilder : public TreeBuilder
   std::vector<unsigned> clusterSizes_ = {10, 20, 30};
 };
 
-}  // namespace cts
+}  // namespace cms

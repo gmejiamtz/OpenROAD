@@ -28,7 +28,7 @@
 #include "sta/Units.hh"
 #include "utl/Logger.h"
 
-namespace cts {
+namespace cms {
 
 using utl::CMS;
 
@@ -657,7 +657,6 @@ void TechChar::initCharacterization()
 void TechChar::finalizeRootSinkBuffers()
 {
   // Sink info is not available yet, so defer adjustment till later
-  logger_->info(CMS, 1234, "In finalizeRootSinkBuffers() this is just a test to see if flow scripts use this repo in reality.");
   logger_->info(CMS, 50, "Root buffer is {}.", options_->getRootBuffer());
   logger_->info(CMS, 51, "Sink buffer is {}.", options_->getSinkBuffer());
   if (options_->isSinkBufferMaxCapDerateSet()) {
@@ -1788,4 +1787,4 @@ bool TechChar::isTopologyMonotonic(const std::vector<size_t>& row)
   return monotonic;
 }
 
-}  // namespace cts
+}  // namespace cms

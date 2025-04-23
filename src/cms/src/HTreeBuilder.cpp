@@ -19,7 +19,7 @@
 #include "SinkClustering.h"
 #include "utl/Logger.h"
 
-namespace cts {
+namespace cms {
 
 using utl::CMS;
 
@@ -2191,4 +2191,4 @@ void SegmentBuilder::forceBufferInSegment(const std::string& master)
   numBufferLevels_++;
 }
 
-}  // namespace cts
+}  // namespace cms

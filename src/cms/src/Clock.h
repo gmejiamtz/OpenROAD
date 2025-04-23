@@ -20,7 +20,7 @@ namespace utl {
 class Logger;
 }  // namespace utl
 
-namespace cts {
+namespace cms {
 
 enum InstType : uint8_t
 {
@@ -275,4 +275,4 @@ class Clock
   unsigned numLevels_ = 0;
 };
 
-}  // namespace cts
+}  // namespace cms

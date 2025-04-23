@@ -9,10 +9,10 @@
 #include "ord/OpenRoad.hh"
 #include "utl/decode.h"
 
-namespace cts {
+namespace cms {
 // Tcl files encoded into strings.
 extern const char* cts_tcl_inits[];
-}  // namespace cts
+}  // namespace cms
 
 extern "C" {
 extern int Cts_Init(Tcl_Interp* interp);
@@ -20,9 +20,9 @@ extern int Cts_Init(Tcl_Interp* interp);
 
 namespace ord {
 
-cts::TritonCTS* makeTritonCts()
+cms::TritonCTS* makeTritonCts()
 {
-  return new cts::TritonCTS();
+  return new cms::TritonCTS();
 }
 
 void initTritonCts(OpenRoad* openroad)
@@ -30,7 +30,7 @@ void initTritonCts(OpenRoad* openroad)
   Tcl_Interp* tcl_interp = openroad->tclInterp();
   // Define swig TCL commands.
   Cts_Init(tcl_interp);
-  utl::evalTclInit(tcl_interp, cts::cts_tcl_inits);
+  utl::evalTclInit(tcl_interp, cms::cts_tcl_inits);
   openroad->getTritonCts()->init(openroad->getLogger(),
                                  openroad->getDb(),
                                  openroad->getDbNetwork(),
@@ -39,7 +39,7 @@ void initTritonCts(OpenRoad* openroad)
                                  openroad->getResizer());
 }
 
-void deleteTritonCts(cts::TritonCTS* tritoncts)
+void deleteTritonCts(cms::TritonCTS* tritoncts)
 {
   delete tritoncts;
 }

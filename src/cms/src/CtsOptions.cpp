@@ -3,7 +3,7 @@
 
 #include "CtsOptions.h"
 
-namespace cts {
+namespace cms {
 
 CtsOptions::MasterType CtsOptions::getType(odb::dbInst* inst) const
 {
@@ -37,4 +37,4 @@ void CtsOptions::recordBuffer(odb::dbMaster* master, MasterType type)
   }
 }
 
-}  // namespace cts
+}  // namespace cms

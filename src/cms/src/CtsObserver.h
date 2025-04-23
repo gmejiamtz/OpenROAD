@@ -8,7 +8,7 @@
 
 #include "Clock.h"
 
-namespace cts {
+namespace cms {
 
 class HTreeBuilder;
 class SinkClustering;
@@ -27,4 +27,4 @@ class CtsObserver
   virtual void status(const std::string& message) = 0;
 };
 
-}  // namespace cts
+}  // namespace cms

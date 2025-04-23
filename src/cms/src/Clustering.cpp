@@ -26,7 +26,7 @@
 
 #include "utl/Logger.h"
 
-namespace cts::CKMeans {
+namespace cms::CKMeans {
 
 using lemon::INVALID;
 using lemon::ListDigraph;
@@ -435,4 +435,4 @@ float Clustering::calcDist(const std::pair<float, float>& loc1,
          + std::abs(loc1.second - loc2.second);
 }
 
-}  // namespace cts::CKMeans
+}  // namespace cms::CKMeans

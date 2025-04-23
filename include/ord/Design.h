@@ -59,7 +59,7 @@ namespace tap {
 class Tapcell;
 }
 
-namespace cts {
+namespace cms {
 class TritonCTS;
 }
 

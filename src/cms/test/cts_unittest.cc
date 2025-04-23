@@ -8,12 +8,12 @@
 #include <vector>
 
 #include "gtest/gtest.h"
-#include "src/cts/src/Clock.h"
-#include "src/cts/src/Clustering.h"
-#include "src/cts/src/HTreeBuilder.h"
+#include "src/cms/src/Clock.h"
+#include "src/cms/src/Clustering.h"
+#include "src/cms/src/HTreeBuilder.h"
 #include "utl/Logger.h"
 
-namespace cts {
+namespace cms {
 
 TEST(HTreeBuilderTest, Instantiates)
 {

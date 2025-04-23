@@ -239,7 +239,7 @@ class OpenRoad
   mpl::MacroPlacer* macro_placer_ = nullptr;
   grt::GlobalRouter* global_router_ = nullptr;
   rmp::Restructure* restructure_ = nullptr;
-  cts::TritonCTS* tritonCts_ = nullptr;
+  cms::TritonCTS* tritonCts_ = nullptr;
   tap::Tapcell* tapcell_ = nullptr;
   rcx::Ext* extractor_ = nullptr;
   drt::TritonRoute* detailed_router_ = nullptr;

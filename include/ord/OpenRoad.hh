@@ -39,7 +39,7 @@ namespace rmp {
 class Restructure;
 }
 
-namespace cts {
+namespace cms {
 class TritonCTS;
 }
 
@@ -141,7 +141,7 @@ class OpenRoad
   sta::dbNetwork* getDbNetwork();
   rsz::Resizer* getResizer() { return resizer_; }
   rmp::Restructure* getRestructure() { return restructure_; }
-  cts::TritonCTS* getTritonCts() { return tritonCts_; }
+  cms::TritonCTS* getTritonCts() { return tritonCts_; }
   dbVerilogNetwork* getVerilogNetwork() { return verilog_network_; }
   dpl::Opendp* getOpendp() { return opendp_; }
   dpo::Optdp* getOptdp() { return optdp_; }

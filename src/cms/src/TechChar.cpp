@@ -30,7 +30,7 @@
 
 namespace cts {
 
-using utl::CTS;
+using utl::CMS;
 
 TechChar::TechChar(CtsOptions* options,
                    odb::dbDatabase* db,
@@ -107,7 +107,7 @@ void TechChar::compileLut(const std::vector<TechChar::ResultData>& lutSols)
     }
   }
 
-  if (logger_->debugCheck(utl::CTS, "tech char", 1)
+  if (logger_->debugCheck(utl::CMS, "tech char", 1)
       && noSlewDegradationCount > 0) {
     logger_->warn(CMS,
                   43,
@@ -132,7 +132,7 @@ void TechChar::initLengthUnits()
 
 inline void TechChar::reportCharacterizationBounds() const
 {
-  if (logger_->debugCheck(utl::CTS, "tech char", 1)) {
+  if (logger_->debugCheck(utl::CMS, "tech char", 1)) {
     logger_->report(
         "Min. len    Max. len    Min. cap    Max. cap    Min. slew   Max. "
         "slew");
@@ -358,7 +358,7 @@ void TechChar::createFakeEntries(unsigned length, unsigned fakeLength)
     return;
   }
 
-  if (logger_->debugCheck(utl::CTS, "tech char", 1)) {
+  if (logger_->debugCheck(utl::CMS, "tech char", 1)) {
     logger_->warn(CMS, 45, "Creating fake entries in the LUT.");
   }
   for (unsigned load = 1; load <= getMaxCapacitance(); ++load) {
@@ -804,7 +804,7 @@ void TechChar::collectSlewsLoadsFromTableAxis(sta::LibertyCell* libCell,
     }
   }
 
-  if (logger_->debugCheck(utl::CTS, "tech char", 2)) {
+  if (logger_->debugCheck(utl::CMS, "tech char", 2)) {
     logger_->report("axis slews at {}", libCell->name());
     for (float slew : axisSlews) {
       logger_->report("{:0.3e} ", slew);
@@ -840,7 +840,7 @@ void TechChar::sortAndUniquify(std::vector<float>& values,
     }
   }
 
-  if (logger_->debugCheck(utl::CTS, "tech char", 2)) {
+  if (logger_->debugCheck(utl::CMS, "tech char", 2)) {
     logger_->report("sorted {} axis", name);
     for (float val : values) {
       logger_->report("{:0.3e} ", val);
@@ -869,7 +869,7 @@ void TechChar::reduceOrExpand(std::vector<float>& values, unsigned limit)
     } while (values.size() != limit);
   }
 
-  if (logger_->debugCheck(utl::CTS, "tech char", 2)) {
+  if (logger_->debugCheck(utl::CMS, "tech char", 2)) {
     logger_->report("final slew/load values");
     for (float val : values) {
       logger_->report("{:0.3e} ", val);
@@ -1655,7 +1655,7 @@ void TechChar::create()
               solutionMap_[solutionKey] = std::move(resultGroup);
             }
             topologiesCreated++;
-            if (logger_->debugCheck(utl::CTS, "tech char", 1)
+            if (logger_->debugCheck(utl::CMS, "tech char", 1)
                 && topologiesCreated % 50000 == 0) {
               debugPrint(logger_,
                          CMS,
@@ -1676,7 +1676,7 @@ void TechChar::create()
     }
     openStaChar_.reset(nullptr);
   }
-  if (logger_->debugCheck(utl::CTS, "tech char", 1)) {
+  if (logger_->debugCheck(utl::CMS, "tech char", 1)) {
     logger_->info(
         CMS, 39, "Number of created patterns = {}.", topologiesCreated);
   }

@@ -31,7 +31,7 @@ namespace cts::CKMeans {
 using lemon::INVALID;
 using lemon::ListDigraph;
 using lemon::NetworkSimplex;
-using utl::CTS;
+using utl::CMS;
 
 struct Sink
 {

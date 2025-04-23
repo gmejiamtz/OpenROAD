@@ -21,7 +21,7 @@
 namespace cts {
 
 using std::vector;
-using utl::CTS;
+using utl::CMS;
 
 SinkClustering::SinkClustering(const CtsOptions* options,
                                TechChar* techChar,

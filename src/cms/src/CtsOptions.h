@@ -142,7 +142,7 @@ class CtsOptions : public odb::dbBlockCallBackObj
 
     if (dbUnits_ == -1) {
       logger_->error(
-          utl::CTS, 542, "Must provide a dbUnit conversion though setDbUnits.");
+          utl::CMS, 542, "Must provide a dbUnit conversion though setDbUnits.");
     }
 
     return 100 /*um*/ * dbUnits_;
@@ -158,7 +158,7 @@ class CtsOptions : public odb::dbBlockCallBackObj
 
     if (dbUnits_ == -1) {
       logger_->error(
-          utl::CTS, 543, "Must provide a dbUnit conversion though setDbUnits.");
+          utl::CMS, 543, "Must provide a dbUnit conversion though setDbUnits.");
     }
 
     return 240 /*um*/ * dbUnits_;

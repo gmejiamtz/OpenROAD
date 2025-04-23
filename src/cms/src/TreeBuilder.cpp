@@ -19,7 +19,7 @@
 
 namespace cts {
 
-using utl::CTS;
+using utl::CMS;
 
 void TreeBuilder::mergeBlockages()
 {

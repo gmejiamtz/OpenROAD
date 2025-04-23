@@ -45,7 +45,7 @@
 
 namespace cts {
 
-using utl::CTS;
+using utl::CMS;
 
 void TritonCTS::init(utl::Logger* logger,
                      odb::dbDatabase* db,
@@ -745,7 +745,7 @@ void TritonCTS::inferBufferList(std::vector<std::string>& buffers)
   }
 
   options_->setBufferListInferred(true);
-  if (logger_->debugCheck(utl::CTS, "buffering", 1)) {
+  if (logger_->debugCheck(utl::CMS, "buffering", 1)) {
     for (const std::string& bufName : buffers) {
       logger_->report("{} has been inferred as clock buffer", bufName);
     }
@@ -1842,7 +1842,7 @@ void TritonCTS::writeDummyLoadsToDb(Clock& clockNet,
     });
   });
 
-  if (logger_->debugCheck(utl::CTS, "dummy load", 1)) {
+  if (logger_->debugCheck(utl::CMS, "dummy load", 1)) {
     printClockNetwork(clockNet);
   }
 }
@@ -1993,7 +1993,7 @@ void TritonCTS::findCandidateDummyCells(
               return (getInputCap(cell1) < getInputCap(cell2));
             });
 
-  if (logger_->debugCheck(utl::CTS, "dummy load", 1)) {
+  if (logger_->debugCheck(utl::CMS, "dummy load", 1)) {
     for (const sta::LibertyCell* libCell : dummyCandidates) {
       // clang-format off
       logger_->debug(CMS, "dummy load",

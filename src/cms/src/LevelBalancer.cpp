@@ -17,7 +17,7 @@
 
 namespace cts {
 
-using utl::CTS;
+using utl::CMS;
 
 void LevelBalancer::run()
 {

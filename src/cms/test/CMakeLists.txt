@@ -53,7 +53,7 @@ target_link_libraries(cms_unittest
     odb
 )
 
-gtest_discover_tests(cts_unittest
+gtest_discover_tests(cms_unittest
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 

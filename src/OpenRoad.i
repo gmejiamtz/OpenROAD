@@ -94,7 +94,7 @@ getRestructure()
   return openroad->getRestructure();
 }
 
-cts::TritonCTS *
+cms::TritonCTS *
 getTritonCts()
 {
   OpenRoad *openroad = getOpenRoad();

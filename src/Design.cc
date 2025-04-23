@@ -263,7 +263,7 @@ tap::Tapcell* Design::getTapcell()
   return getOpenRoad()->getTapcell();
 }
 
-cts::TritonCTS* Design::getTritonCts()
+cms::TritonCTS* Design::getTritonCts()
 {
   return getOpenRoad()->getTritonCts();
 }

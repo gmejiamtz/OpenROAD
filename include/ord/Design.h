@@ -157,7 +157,7 @@ class Design
 
   // Services
   ant::AntennaChecker* getAntennaChecker();
-  cts::TritonCTS* getTritonCts();
+  cms::TritonCTS* getTritonCts();
   dft::Dft* getDft();
   dpl::Opendp* getOpendp();
   dpo::Optdp* getOptdp();

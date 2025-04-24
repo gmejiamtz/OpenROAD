@@ -255,7 +255,7 @@ add_subdirectory(dpo)
 add_subdirectory(fin)
 add_subdirectory(ppl)
 add_subdirectory(rmp)
-#add_subdirectory(cts)
+# add_subdirectory(cts)
 add_subdirectory(cms)
 add_subdirectory(grt)
 add_subdirectory(tap)
@@ -319,7 +319,7 @@ target_link_libraries(openroad
   odbtcl
   rcx
   rmp
-  cts
+  cms
   grt
   tap
   gui

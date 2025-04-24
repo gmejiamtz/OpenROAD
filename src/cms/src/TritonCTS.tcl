@@ -222,7 +222,7 @@ proc report_cts { args } {
   cms::report_cts_metrics
 }
 
-namespace eval cts {
+namespace eval cms {
 proc clock_tree_synthesis_debug { args } {
   sta::parse_key_args "clock_tree_synthesis_debug" args \
     keys {} flags {-plot} ;# checker off

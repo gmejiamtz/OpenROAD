@@ -60,7 +60,6 @@ using std::string;
   X(dpl)                                 \
   X(ppl)                                 \
   X(tap)                                 \
-  X(cts)                                 \
   X(cms)                                 \
   X(drt)                                 \
   X(dpo)                                 \

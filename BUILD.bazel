@@ -332,12 +332,12 @@ tcl_encode(
 )
 
 tcl_encode(
-    name = "triton_cts_tcl",
+    name = "triton_cms_tcl",
     srcs = [
-        "src/cts/src/TritonCTS.tcl",
+        "src/cms/src/TritonCTS.tcl",
     ],
-    char_array_name = "cts_tcl_inits",
-    namespace = "cts",
+    char_array_name = "cms_tcl_inits",
+    namespace = "cms",
 )
 
 tcl_encode(
@@ -623,16 +623,16 @@ tcl_wrap_cc(
 )
 
 tcl_wrap_cc(
-    name = "triton_cts_swig",
+    name = "triton_cms_swig",
     srcs = [
-        "src/cts/src/TritonCTS.i",
+        "src/cms/src/TritonCTS.i",
         ":error_swig",
     ],
-    module = "cts",
-    namespace_prefix = "cts",
-    root_swig_src = "src/cts/src/TritonCTS.i",
+    module = "cms",
+    namespace_prefix = "cms",
+    root_swig_src = "src/cms/src/TritonCTS.i",
     swig_includes = [
-        "src/cts/src",
+        "src/cms/src",
     ],
 )
 

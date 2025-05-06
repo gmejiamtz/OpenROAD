@@ -11,11 +11,11 @@
 
 namespace cms {
 // Tcl files encoded into strings.
-extern const char* cts_tcl_inits[];
+extern const char* cms_tcl_inits[];
 }  // namespace cms
 
 extern "C" {
-extern int Cts_Init(Tcl_Interp* interp);
+extern int Cms_Init(Tcl_Interp* interp);
 }
 
 namespace ord {
@@ -29,8 +29,8 @@ void initTritonCts(OpenRoad* openroad)
 {
   Tcl_Interp* tcl_interp = openroad->tclInterp();
   // Define swig TCL commands.
-  Cts_Init(tcl_interp);
-  utl::evalTclInit(tcl_interp, cms::cts_tcl_inits);
+  Cms_Init(tcl_interp);
+  utl::evalTclInit(tcl_interp, cms::cms_tcl_inits);
   openroad->getTritonCts()->init(openroad->getLogger(),
                                  openroad->getDb(),
                                  openroad->getDbNetwork(),

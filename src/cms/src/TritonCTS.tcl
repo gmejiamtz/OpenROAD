@@ -62,6 +62,7 @@ sta::define_cmd_args "clock_tree_synthesis" {[-wire_unit unit]
 } ;# checker off
 
 proc clock_tree_synthesis { args } {
+  puts "Putting this dummy statement here to see if flow scripts cts.tcl just logs clock_tree_synthesis proc or actually runs it"
   sta::parse_key_args "clock_tree_synthesis" args \
     keys {-root_buf -buf_list -wire_unit -clk_nets -sink_clustering_size \
           -num_static_layers -sink_clustering_buffer \

@@ -53,11 +53,11 @@ ClockMesh::dump_value()
   return this->value;
 }
 
-void
+int
 ClockMesh::set_value(int value)
 {
   this->value_ = value;
-  return this->value;
+  return this->value_;
 }
 
 } //namespace cms

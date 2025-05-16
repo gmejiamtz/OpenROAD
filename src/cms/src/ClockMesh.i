@@ -41,7 +41,7 @@ dump_value()
   getCMS()->dump_value();
 }
 
-void
+int
 set_value(int value)
 {
   getCMS()->set_value(value);

@@ -27,20 +27,24 @@ getCMS()
   return ord::OpenRoad::openRoad()->getCMS();
 }
 
+namespace ord {
+  odb::dbDatabase *getDb();
+}
+
 %}
 
 %inline %{
-
+namespace cms {
 void
-dumpValue()
+dump_value()
 {
-  getCMS()->dumpValue();
+  getCMS()->dump_value();
 }
 
 void
-setValue(int value)
+set_value(int value)
 {
-  getCMS()->setValue(value);
+  getCMS()->set_value(value);
 }
-
+} // namespace
 %} // inline

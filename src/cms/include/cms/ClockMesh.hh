@@ -26,8 +26,8 @@ public:
   ~ClockMesh();
   void init(Tcl_Interp *tcl_interp,
 	    odb::dbDatabase *db);
-  void dumpValue();
-  void setValue(int value);
+  int dump_value();
+  void set_value(int value);
 
 private:
   odb::dbDatabase *db_;

@@ -47,16 +47,17 @@ ClockMesh::init(Tcl_Interp *tcl_interp,
   sta::evalTclInit(tcl_interp, cms::cms_tcl_inits);
 }
 
-void
-ClockMesh::dumpValue()
+int
+ClockMesh::dump_value()
 {
-  printf("Clock Mesh Value: %d\n",this->value_);
+  return this->value;
 }
 
 void
-ClockMesh::setValue(int value)
+ClockMesh::set_value(int value)
 {
   this->value_ = value;
+  return this->value;
 }
 
 } //namespace cms

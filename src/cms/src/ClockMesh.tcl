@@ -14,35 +14,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-sta::define_cmd_args "run_cms" {}
+sta::define_cmd_args "run_cms_value" {}
 
 # Put helper functions in a separate namespace so they are not visible
 # too users in the global namespace.
 namespace eval cms {
 
-proc tool_helper { } {
-  puts "Helping 23/6"
+proc run_cms_value { args } {
+  sta::parse_key_args "run_cms_value" args;
+
+  return [cms::set_value $args]
 }
 
 }
 
-# Example usage:
-#  toolize foo
-#  toolize -flag1 -key1 2.0 bar
-#  help toolize
-#proc toolize { args } {
-#  sta::parse_key_args "toolize" args \
-#    keys {-key1} flags {-flag1}
-#
-#  if { [info exists keys(-key1)] } {
-#    set param1 $keys(-key1)
-#    sta::check_positive_float "-key1" $param1
-#    tool::tool_set_param1 $param1
-#  }
-##
-#  tool::tool_set_flag1 [info exists flags(-flag1)]
-#
-#  sta::check_argc_eq1 "toolize" $args
-#  tool::tool_helper
-#  tool::toolize [lindex $args 0]
-#}

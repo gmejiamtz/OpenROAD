@@ -50,7 +50,7 @@ ClockMesh::init(Tcl_Interp *tcl_interp,
 int
 ClockMesh::dump_value()
 {
-  return this->value;
+  return this->value_;
 }
 
 int

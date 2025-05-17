@@ -27,7 +27,7 @@ public:
   void init(Tcl_Interp *tcl_interp,
 	    odb::dbDatabase *db);
   int dump_value();
-  void set_value(int value);
+  int set_value(int value);
 
 private:
   odb::dbDatabase *db_;

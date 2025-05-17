@@ -35,7 +35,7 @@ namespace ord {
 
 %inline %{
 namespace cms {
-void
+int
 dump_value()
 {
   getCMS()->dump_value();

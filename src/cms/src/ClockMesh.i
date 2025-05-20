@@ -38,13 +38,13 @@ namespace cms {
 int
 dump_value()
 {
-  getCMS()->dump_value();
+  return getCMS()->dump_value();
 }
 
 int
 set_value(int value)
 {
-  getCMS()->set_value(value);
+  return getCMS()->set_value(value);
 }
 } // namespace
 %} // inline

@@ -14,14 +14,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-sta::define_cmd_args "run_cms_value" {}
+sta::define_cmd_args "cms_set_value" {}
 
 # Put helper functions in a separate namespace so they are not visible
 # too users in the global namespace.
 namespace eval cms {
 
-proc run_cms_value { args } {
-  sta::parse_key_args "run_cms_value" args;
+proc cms_set_value { args } {
+  sta::parse_key_args "cms_set_value" args;
 
   return [cms::set_value $args]
 }

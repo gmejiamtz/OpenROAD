@@ -34,12 +34,14 @@ namespace ord {
 %}
 
 %inline %{
+
 namespace cms {
 int
 dump_value()
 {
   return getCMS()->dump_value();
 }
+
 
 int
 set_value(int value)

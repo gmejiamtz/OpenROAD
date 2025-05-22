@@ -14,10 +14,50 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+#pragma once
+
 #include <tcl.h>
+#include <string>
+#include "db_sta/dbNetwork.hh"
+#include "db_sta/dbSta.hh"
 #include "odb/db.h"
+#include "rsz/Resizer.hh"
+#include "sta/Sdc.hh"
+#include "sta/Liberty.hh"
+#include "sta/Network.hh"
+#include "sta/Path.hh"
+#include "sta/UnorderedSet.hh"
+#include "utl/Logger.h"
+
+namespace utl {
+class Logger;
+}
+
+namespace rsz {
+class Resizer;
+} // namespace rsz
+
+namespace sta {
+class dbSta;
+class Clock;
+class dbNetwork;
+class Unit;
+class Vertex;
+class Graph;
+}  // namespace sta
+
 
 namespace cms {
+
+using utl::Logger;
+
+using odb::Point;
+
+using sta::Instance;
+using sta::LibertyCell;
+using sta::LibertyCellSeq;
+
+
 
 class ClockMesh
 {
@@ -25,13 +65,32 @@ public:
   ClockMesh();
   ~ClockMesh();
   void init(Tcl_Interp *tcl_interp,
-	    odb::dbDatabase *db);
-  int dump_value();
-  int set_value(int value);
+	    odb::dbDatabase *db,
+      sta::dbNetwork* network,
+      rsz::Resizer* resizer,
+      utl::Logger* logger);
+  void dump_value();
+  void set_value(int value);
+  void addBuffer();
+  void createGrid();
 
 private:
-  odb::dbDatabase *db_;
+  std::string makeUniqueInstName(const char* base_name, bool underscore);
+  void findBuffers();
+  int createBufferArray(int amount);
+  bool isLinkCell(LibertyCell* cell) const;
+  float bufferDriveResistance(const LibertyCell* buffer) const;
+
+  sta::Instance** buffers_ = nullptr; 
+  odb::dbDatabase *db_ = nullptr;
+  Point* point_ = nullptr;
+  rsz::Resizer* resizer_ = nullptr;
+  sta::dbNetwork* network_ = nullptr;
+  utl::Logger* logger_ = nullptr;
   int value_;
+  int buffer_ptr_;
+  LibertyCellSeq buffer_cells_;
+  int unique_inst_index_ = 1;
 };
 
 } //  namespace cms

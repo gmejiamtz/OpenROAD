@@ -23,24 +23,47 @@ extern int Cms_Init(Tcl_Interp *interp);
 
 namespace cms {
 
+using utl::CMS;
+using std::string;
+using sta::LibertyLibrary;
+using sta::LibertyLibrarySeq;
+using sta::LibertyPort;
+
 // Tcl files encoded into strings.
 extern const char *cms_tcl_inits[];
 
 ClockMesh::ClockMesh()
 {
   this->value_ = 0;
+  this->buffer_ptr_ = 0;
+  this->buffers_ = nullptr;
 }
 
 ClockMesh::~ClockMesh()
 {
+  if (this->buffers_ != nullptr) {
+    for (int i = 0; i < value_; i++) {
+      network_->deleteInstance(buffers_[i]);
+    }
+    delete[] this->buffers_;
+    this->buffers_ = nullptr;
+    delete point_;
+    this->point_ = nullptr;
+  }
+  
 }
 
 void
-ClockMesh::init(Tcl_Interp *tcl_interp,
-	   odb::dbDatabase *db)
+ClockMesh::init(Tcl_Interp* tcl_interp,
+	   odb::dbDatabase* db,
+     sta::dbNetwork* network,
+     rsz::Resizer* resizer,
+     utl::Logger* logger)
 {
   db_ = db;
-
+  logger_ = logger;
+  network_ = network;
+  resizer_ = resizer;
   // Define swig TCL commands.
   Cms_Init(tcl_interp);
   // Eval encoded cms TCL sources.
@@ -51,13 +74,104 @@ int
 ClockMesh::dump_value()
 {
   return this->value_;
+  logger_->info(CMS, 001, "Dumping ClockMesh Value of {}",value_);
 }
 
 int
 ClockMesh::set_value(int value)
 {
-  this->value_ = value;
+  this->value_ = std::abs(value);
+  logger_->info(CMS, 002, "Set ClockMesh Value to {}", value);
   return this->value_;
 }
 
-} //namespace cms
+int
+ClockMesh::createBufferArray(int amount)
+{
+  if (amount == 0) {
+    logger_->error(CMS, 003, "Need to set CMS Buffer Amount to non zero");
+    return 1;
+  } else {
+    this->buffers_ = new sta::Instance*[amount];
+    this->point_ = new Point[amount];
+    logger_->info(CMS, 004, "CMS Buffer and Point arrays initialized!");
+    return 0;
+  }
+}
+
+void
+ClockMesh::addBuffer()
+{
+  this->point_[buffer_ptr_].setX(buffer_ptr_);
+  this->point_[buffer_ptr_].setY(buffer_ptr_);
+  const string buffer_name = makeUniqueInstName("clock_mesh_buffer",true);
+  buffers_[buffer_ptr_] = network_->makeInstance(buffer_cells_[0],
+                          buffer_name.c_str(),
+                          nullptr);
+  logger_->info(CMS, 005, "CMS added buffer: {} at point X: {} Y: {}",buffer_name, point_[buffer_ptr_].getX(),point_[buffer_ptr_].getY());
+  buffer_ptr_++;
+}
+
+void
+ClockMesh::findBuffers()
+{
+  if (buffer_cells_.empty()) {
+    sta::LibertyLibraryIterator* lib_iter = network_->libertyLibraryIterator();
+    while (lib_iter->hasNext()) {
+      LibertyLibrary* lib = lib_iter->next();
+      for (LibertyCell* buffer : *lib->buffers()) {
+        if (!resizer_->dontUse(buffer) && isLinkCell(buffer)) {
+          buffer_cells_.emplace_back(buffer);
+        }
+      }
+    }
+    delete lib_iter;
+    if (buffer_cells_.empty()) {
+      logger_->error(CMS, 006, "no buffers found.");
+    } else {
+      sort(buffer_cells_,
+           [this](const LibertyCell* buffer1, const LibertyCell* buffer2) {
+             return bufferDriveResistance(buffer1)
+                    > bufferDriveResistance(buffer2);
+           });
+    }
+  }
+}
+
+std::string
+ClockMesh::makeUniqueInstName(const char* base_name, bool underscore)
+{
+  string inst_name;
+  do {
+    // sta::stringPrint can lead to string overflow and fatal
+    if (underscore) {
+      inst_name = fmt::format("{}_{}", base_name, unique_inst_index_++);
+    } else {
+      inst_name = fmt::format("{}{}", base_name, unique_inst_index_++);
+    }
+  } while (network_->findInstance(inst_name.c_str()));
+  return inst_name;
+}
+
+float
+ClockMesh::bufferDriveResistance(const LibertyCell* buffer) const
+{
+  LibertyPort *input, *output;
+  buffer->bufferPorts(input, output);
+  return output->driveResistance();
+}
+
+
+void
+ClockMesh::createGrid()
+{
+  findBuffers();
+}
+
+bool
+ClockMesh::isLinkCell(LibertyCell* cell) const
+{
+  return network_->findLibertyCell(cell->name()) == cell;
+}
+
+} // namespace cms

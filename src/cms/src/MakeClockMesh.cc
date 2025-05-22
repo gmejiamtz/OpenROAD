@@ -50,7 +50,12 @@ initClockMesh(OpenRoad *openroad)
   // Eval encoded sta TCL sources.
   utl::evalTclInit(interp, cms::cms_tcl_inits);
 
-  openroad->getCMS()->init(interp, openroad->getDb());
+
+  openroad->getCMS()->init(interp,
+			    openroad->getDb(),
+          openroad->getDbNetwork(),
+          openroad->getResizer(),
+          openroad->getLogger());
 }
 
 }

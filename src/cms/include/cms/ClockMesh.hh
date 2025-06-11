@@ -27,7 +27,7 @@
 #include "sta/Path.hh"
 #include "sta/UnorderedSet.hh"
 #include "utl/Logger.h"
-
+#include "straps.h"
 namespace utl {
 class Logger;
 } //  namespace utl
@@ -102,6 +102,7 @@ private:
   int buffer_ptr_ = 0;
   LibertyCellSeq buffer_cells_;
   int unique_inst_index_ = 1;
+  Straps strap_obj;
 };
 
 } //  namespace cms

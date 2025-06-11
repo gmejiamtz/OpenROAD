@@ -16,7 +16,7 @@
 
 #include "cms/ClockMesh.hh"
 
-#include "straps.h"
+#include "cms/straps.h"
 #include "sta/StaMain.hh"
 
 extern "C" {
@@ -66,6 +66,8 @@ ClockMesh::init(Tcl_Interp* tcl_interp,
   logger_ = logger;
   db_network_ = db_network;
   sta::dbStaState::init(sta);
+  strap_obj = Straps::Straps(odb::dbTechLayer::getTechLayer(), 180, 200, 50);
+  
   // Define swig TCL commands.
   Cms_Init(tcl_interp);
   // Eval encoded cms TCL sources.
@@ -103,6 +105,7 @@ ClockMesh::report_cms()
 void
 ClockMesh::addBuffer()
 {
+  points_ = strap_obj.makeStraps(0, 0, 100, 100, 0, 100, true, nullptr);
   points_[buffer_ptr_]->setX(buffer_ptr_);
   points_[buffer_ptr_]->setY(buffer_ptr_);
   const string buffer_name = makeUniqueInstName("clock_mesh_buffer",true);

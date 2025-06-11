@@ -191,17 +191,21 @@ ClockMesh::makeGrid()
   // Getting ObstructionTree
   ObstructionTree obs_tree1;
   ObstructionTree obs_tree2;
-  
-  // auto* block = db_->getChip()->getBlock();
-  // for (odb::dbInst* inst : block->getInsts()) {
-    
-  // }
 
-  Straps straps1(layer1, 0, 0);
-  straps1.makeStraps(0, 0, 0, 0, 0, 0, true, obs_tree1);
+  // Straps straps1(layer1, 0, 0);
+  // straps1.makeStraps(0, 0, 0, 0, 0, 0, true, obs_tree1);
 
-  Straps straps2(layer2, 0, 0);
-  straps2.makeStraps(0, 0, 0, 0, 0, 0, false, obs_tree2);
+  // Straps straps2(layer2, 0, 0);
+  // straps2.makeStraps(0, 0, 0, 0, 0, 0, false, obs_tree2);
+
+  auto* block = db_->getChip()->getBlock();
+  odb::dbWire* wire = odb::dbNet::create(block, "strap", true);
+  odb::Rect strap_rect = odb::Rect(0, 0, 1, 1);
+  odb::dbWireEncoder strap_encoder;
+  strap_encoder.begin(wire);
+  strap_encoder.newPath(layer1, odb::dbWireShapeType::BLOCKWIRE);
+  strap_encoder.addRect(strap_rect);
+  strap_encoder.end();
 
   // create arbitrary buffer grid intersection points and return
   Point* pt1 = new Point({0, 0});

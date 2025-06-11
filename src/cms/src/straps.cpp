@@ -157,6 +157,7 @@ int Straps::getNumberOfStraps() {
 
 ShapePtr Straps::addShape(Shape* shape) {
   auto shape_ptr = std::shared_ptr<Shape>(shape);
+  
   return shape_ptr;
 }
 

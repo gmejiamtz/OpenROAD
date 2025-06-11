@@ -39,7 +39,7 @@ class Straps
          int spacing = 0,
          int number_of_straps = 0);
   
-  std::vector<Point> makeStraps(int x_start,
+  void makeStraps(int x_start,
                   int y_start,
                   int x_end,
                   int y_end,

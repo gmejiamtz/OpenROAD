@@ -43,7 +43,7 @@ Straps::Straps(int width,
   
 }
 
-std::vector<Point> Straps::makeStraps(int x_start,
+void Straps::makeStraps(int x_start,
                         int y_start,
                         int x_end,
                         int y_end,
@@ -109,11 +109,11 @@ std::vector<Point> Straps::makeStraps(int x_start,
 
       if (strap_start >= pos_end) {
         // no portion of the strap is inside the limit
-        return buffer_pts;
+        return;
       }
       if (group_pos > pos_end) {
         // strap center is outside of alotted area
-        return buffer_pts;
+        return;
       }
 
       odb::Rect strap_rect;
@@ -146,15 +146,9 @@ std::vector<Point> Straps::makeStraps(int x_start,
     strap_count++;
     if (number_of_straps_ != 0 && strap_count == number_of_straps_) {
       // if number of straps is met, stop adding
-      // create arbitrary buffer grid intersection points and return
-      buffer_pts.push_back({0, 0});
-      buffer_pts.push_back({0, 1});
-      buffer_pts.push_back({1, 0});
-      buffer_pts.push_back({1, 1});
-      return buffer_pts;
+      return;
     }
   }
-  return buffer_pts;
 }
 
 int Straps::getNumberOfStraps() {

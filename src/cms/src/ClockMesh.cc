@@ -197,11 +197,21 @@ ClockMesh::makeGrid()
     
   // }
 
-  Straps straps_(layer1, 0, 0);
-  straps_.makeStraps(0, 0, 0, 0, 0, 0, true, obs_tree1);
+  Straps straps1(layer1, 0, 0);
+  straps1.makeStraps(0, 0, 0, 0, 0, 0, true, obs_tree1);
 
-  Straps straps_(layer2, 0, 0);
-  straps_.makeStraps(0, 0, 0, 0, 0, 0, false, obs_tree2);
+  Straps straps2(layer2, 0, 0);
+  straps2.makeStraps(0, 0, 0, 0, 0, 0, false, obs_tree2);
+
+  // create arbitrary buffer grid intersection points and return
+  Points* pt1 = new Point({0, 0});
+  Points* pt2 = new Point({0, 1});
+  Points* pt3 = new Point({1, 0});
+  Points* pt4 = new Point({1, 1});
+  points_.emplace_back(pt1);
+  points_.emplace_back(pt2);
+  points_.emplace_back(pt3);
+  points_.emplace_back(pt4);
 }
 
 bool

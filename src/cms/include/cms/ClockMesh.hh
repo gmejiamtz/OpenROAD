@@ -21,6 +21,7 @@
 #include "db_sta/dbNetwork.hh"
 #include "db_sta/dbSta.hh"
 #include "odb/db.h"
+#include "odb/dbWireCodec.h"
 #include "sta/Sdc.hh"
 #include "sta/Liberty.hh"
 #include "sta/Network.hh"

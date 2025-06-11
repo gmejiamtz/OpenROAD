@@ -140,8 +140,8 @@ void Straps::makeStraps(int x_start,
         }
       }
       // TODO: create addShape method for this. Should be this->layer_
-      // addShape(
-      //     new Shape(layer_, net, strap_rect, odb::dbWireShapeType::BLOCKWIRE));
+      addShape(
+          new Shape(layer_, net, strap_rect, odb::dbWireShapeType::BLOCKWIRE));
     }
     strap_count++;
     if (number_of_straps_ != 0 && strap_count == number_of_straps_) {
@@ -154,4 +154,10 @@ void Straps::makeStraps(int x_start,
 int Straps::getNumberOfStraps() {
   return number_of_straps_;
 }
+
+ShapePtr Straps::addShape(Shape* shape) {
+  auto shape_ptr = std::shared_ptr<Shape>(shape);
+  return shape_ptr;
+}
+
 }  // namespace cms

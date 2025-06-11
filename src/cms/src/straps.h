@@ -50,6 +50,8 @@ class Straps
 
   int getNumberOfStraps();
 
+  ShapePtr addShape(Shape* shape);
+
  private:
   odb::dbTechLayer* layer_;
   int width_;

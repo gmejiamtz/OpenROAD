@@ -185,18 +185,23 @@ ClockMesh::makeGrid()
 {
   // Getting dbTechLayer
   odb::dbTech* tech = db_->getTech();
-  odb::dbTechLayer* layer = tech->findLayer("M1");
+  odb::dbTechLayer* layer1 = tech->findLayer("metal1");
+  odb::dbTechLayer* layer2 = tech->findLayer("metal2");
 
   // Getting ObstructionTree
-  ObstructionTree obs_tree;
+  ObstructionTree obs_tree1;
+  ObstructionTree obs_tree2;
   
   // auto* block = db_->getChip()->getBlock();
   // for (odb::dbInst* inst : block->getInsts()) {
     
   // }
 
-  Straps straps_(layer, 0, 0);
-  straps_.makeStraps(0, 0, 0, 0, 0, 0, true, obs_tree);
+  Straps straps_(layer1, 0, 0);
+  straps_.makeStraps(0, 0, 0, 0, 0, 0, true, obs_tree1);
+
+  Straps straps_(layer2, 0, 0);
+  straps_.makeStraps(0, 0, 0, 0, 0, 0, false, obs_tree2);
 }
 
 bool

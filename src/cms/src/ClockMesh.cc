@@ -190,10 +190,10 @@ ClockMesh::makeGrid()
   // Getting ObstructionTree
   ObstructionTree obs_tree;
   
-  auto* block = db_->getChip()->getBlock();
-  for (odb::dbInst* inst : block->getInsts()) {
+  // auto* block = db_->getChip()->getBlock();
+  // for (odb::dbInst* inst : block->getInsts()) {
     
-  }
+  // }
 
   Straps straps_(layer, 0, 0);
   straps_.makeStraps(0, 0, 0, 0, 0, 0, true, obs_tree);

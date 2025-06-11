@@ -204,10 +204,10 @@ ClockMesh::makeGrid()
   straps2.makeStraps(0, 0, 0, 0, 0, 0, false, obs_tree2);
 
   // create arbitrary buffer grid intersection points and return
-  Points* pt1 = new Point({0, 0});
-  Points* pt2 = new Point({0, 1});
-  Points* pt3 = new Point({1, 0});
-  Points* pt4 = new Point({1, 1});
+  Point* pt1 = new Point({0, 0});
+  Point* pt2 = new Point({0, 1});
+  Point* pt3 = new Point({1, 0});
+  Point* pt4 = new Point({1, 1});
   points_.emplace_back(pt1);
   points_.emplace_back(pt2);
   points_.emplace_back(pt3);

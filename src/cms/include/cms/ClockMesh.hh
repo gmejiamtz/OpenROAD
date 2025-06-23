@@ -50,6 +50,7 @@ using odb::Point;
 using odb::dbMaster;
 using odb::dbInst;
 using odb::dbPlacementStatus;
+using odb::dbWireEncoder;
 
 using sta::Instance;
 using sta::LibertyCell;

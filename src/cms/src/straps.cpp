@@ -55,7 +55,7 @@ std::vector<Point> Straps::makeStraps(int x_start,
   std::vector<Point> buffer_pts;
 
   const int half_width = width_ / 2;
-  int strap_count = 0;
+  int strap_count_ = 0;
 
   int pos = is_delta_x ? x_start : y_start;
   const int pos_end = is_delta_x ? x_end : y_end;
@@ -146,8 +146,8 @@ std::vector<Point> Straps::makeStraps(int x_start,
       // addShape(
       //     new Shape(layer_, net, strap_rect, odb::dbWireShapeType::BLOCKWIRE));
     }
-    strap_count++;
-    if (number_of_straps_ != 0 && strap_count == number_of_straps_) {
+    strap_count_++;
+    if (number_of_straps_ != 0 && strap_count_ == number_of_straps_) {
       // if number of straps is met, stop adding
       // create arbitrary buffer grid intersection points and return
       buffer_pts.push_back({0, 0});

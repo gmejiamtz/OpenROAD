@@ -38,8 +38,8 @@ extern const char *cms_tcl_inits[];
 
 ClockMesh::ClockMesh()
 {
-  this->buffer_count = 0;
-  this->strap_count = 0;
+  this->buffer_count_ = 0;
+  this->strap_count_ = 0;
 }
 
 ClockMesh::~ClockMesh()
@@ -84,27 +84,25 @@ ClockMesh::report_cms()
       logger_->error(
           CMS, 87, "Could not open output metric file {}.", filename.c_str());
     }
-    file << "Added " << this->buffer_count << " buffers";
-    file << "Added " << this->strap_count << " straps";
+    file << "Added " << this->buffer_count_ << " buffers";
+    file << "Added " << this->strap_count_ << " straps";
     for (int i = 0; i < buffer_ptr_; i++) {
       file << "CMS added buffer #" << i << ": at point X: "<< points_[i]->getX() << " Y: " << points_[i]->getY();
     }
     file.close();
   } else {
-    logger_->info(CMS, 189, "Added {} buffers", this->buffer_count);
-    logger_->info(CMS, 190, "Added {} straps", this->strap_count);
+    logger_->info(CMS, 189, "Added {} buffers", this->buffer_count_);
+    logger_->info(CMS, 190, "Added {} straps", this->strap_count_);
     for (int i = 0; i < buffer_ptr_; i++) {
       logger_->info(CMS, 192, "CMS added buffer #{}: at point X: {} Y: {}", i, points_[i]->getX(),points_[i]->getY());
     }
   }
-  return this->buffer_count;
+  return this->buffer_count_;
 }
 
 void
-ClockMesh::addBuffer()
+ClockMesh::addBuffer(Point point)
 {
-  points_[buffer_ptr_]->setX(buffer_ptr_);
-  points_[buffer_ptr_]->setY(buffer_ptr_);
   const string buffer_name = makeUniqueInstName("clock_mesh_buffer",true);
   Instance* parent = db_network_->topInstance();
   Instance* buffer_inst = db_network_->makeInstance(buffer_cells_[0],
@@ -113,12 +111,11 @@ ClockMesh::addBuffer()
   dbInst* db_inst =  db_network_->staToDb(buffer_inst);
   buffers_.push_back(buffer_inst);
   //set the location
-  setLocation(db_inst, points_[buffer_ptr_]);
+  setLocation(db_inst, point);
   //call legalizer later
   //incremenet area of the design
-  logger_->info(CMS, 95, "CMS added buffer: {} at point X: {} Y: {}",buffer_name, points_[buffer_ptr_]->getX(),points_[buffer_ptr_]->getY());
-  buffer_ptr_++;
-  this->buffer_count++;
+  logger_->info(CMS, 95, "CMS added buffer: {} at point X: {} Y: {}",buffer_name, point->getX(),point->getY());
+  this->buffer_count_++;
 }
 
 void
@@ -176,8 +173,8 @@ ClockMesh::createMesh()
 {
   //get length of grid intersection vector
   //getIntersectionVector();
-  Point* new_point = new Point(0,0);
-  points_.emplace_back(new_point);
+  //Point* new_point = new Point(0,0);
+  //points_.emplace_back(new_point);
   makeGrid();
   findBuffers();
   addBuffer();
@@ -200,9 +197,9 @@ ClockMesh::makeGrid()
 
   Straps straps_(layer, 0, 0);
   std::vector<odb::Point> strap_points = straps_.makeStraps(0, 0, 0, 0, 0, 0, true, obs_tree);
-  // for (int i = 0; i < strap_points.size(); i++) {
-  //   points_[i] = std::copy(strap_points[i]);
-  // }
+  for (int i = 0; i < strap_points.size(); i++) {
+    points_[i] = std::copy(strap_points[i]);
+  }
   this->strap_count += points_.size();
 }
 
@@ -238,5 +235,15 @@ ClockMesh::setLocation(dbInst* db_inst, const Point* pt)
   db_inst->setPlacementStatus(dbPlacementStatus::PLACED);
   logger_->info(CMS, 695, "Placement of buffer at X: {} Y: {}",x,y);
 }
+
+void
+ClockMesh::addBuffers()
+{
+  // Add buffers to the mesh
+  for (auto point : points_) {
+    addBuffer(point);
+  }
+}
+
 
 } // namespace cms

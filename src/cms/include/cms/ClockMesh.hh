@@ -83,7 +83,8 @@ private:
   //functions
   std::string makeUniqueInstName(const char* base_name, bool underscore);
   void makeGrid();
-  void addBuffer();
+  void addBuffer(Point point);
+  void addBuffers();
   void findBuffers();
   int createBufferArray(int amount);
   bool isLinkCell(LibertyCell* cell) const;
@@ -97,8 +98,8 @@ private:
   utl::Logger* logger_ = nullptr;
   std::vector<sta::Instance*> buffers_;
   std::vector<Point*> points_;
-  int buffer_count = 0;
-  int strap_count = 0;
+  int buffer_count_ = 0;
+  int strap_count_ = 0;
   int buffer_ptr_ = 0;
   LibertyCellSeq buffer_cells_;
   int unique_inst_index_ = 1;

@@ -200,7 +200,7 @@ ClockMesh::makeGrid()
   for (int i = 0; i < strap_points.size(); i++) {
     points_[i] = std::copy(strap_points[i]);
   }
-  this->strap_count += points_.size();
+  this->strap_count_ += points_.size();
 }
 
 bool

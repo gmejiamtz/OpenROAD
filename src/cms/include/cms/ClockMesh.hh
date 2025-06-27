@@ -83,7 +83,7 @@ private:
   //functions
   std::string makeUniqueInstName(const char* base_name, bool underscore);
   void makeGrid();
-  void addBuffer(Point point);
+  void addBuffer(Point* point);
   void addBuffers();
   void findBuffers();
   int createBufferArray(int amount);

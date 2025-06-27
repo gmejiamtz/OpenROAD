@@ -101,7 +101,7 @@ ClockMesh::report_cms()
 }
 
 void
-ClockMesh::addBuffer(Point point)
+ClockMesh::addBuffer(Point* point)
 {
   const string buffer_name = makeUniqueInstName("clock_mesh_buffer",true);
   Instance* parent = db_network_->topInstance();
@@ -177,7 +177,7 @@ ClockMesh::createMesh()
   //points_.emplace_back(new_point);
   makeGrid();
   findBuffers();
-  addBuffer();
+  addBuffers();
 }
 
 void 

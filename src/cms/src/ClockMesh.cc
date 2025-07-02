@@ -194,8 +194,8 @@ ClockMesh::makeGrid()
   for (odb::dbInst* inst : block->getInsts()) {
     
   }
-
-  Straps straps_(layer, 0, 0);
+  //pitch and width of straps is hardcoded for now
+  Straps straps_(layer, 0, 5);
   points_ = straps_.makeStraps(0, 0, 0, 0, 0, 0, true, obs_tree);
   //for (int i = 0; i < strap_points.size(); i++) {
   //  points_[i] = std::copy(strap_points[i]);

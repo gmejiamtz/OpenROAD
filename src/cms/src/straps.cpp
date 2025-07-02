@@ -151,9 +151,9 @@ std::vector<Point*> Straps::makeStraps(int x_start,
       // if number of straps is met, stop adding
       // create arbitrary buffer grid intersection points and return
       Point* p1 = new Point(0,0);
-      Point* p2 = new Point(0,1);
-      Point* p3 = new Point(1,0);
-      Point* p4 = new Point(1,1);
+      Point* p2 = new Point(0,25);
+      Point* p3 = new Point(25,0);
+      Point* p4 = new Point(25,25);
       buffer_pts.push_back(p1);
       buffer_pts.push_back(p2);
       buffer_pts.push_back(p3);

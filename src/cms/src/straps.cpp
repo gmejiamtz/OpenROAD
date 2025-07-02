@@ -146,7 +146,6 @@ std::vector<Point*> Straps::makeStraps(int x_start,
       // addShape(
       //     new Shape(layer_, net, strap_rect, odb::dbWireShapeType::BLOCKWIRE));
     }
-    strap_count_++;
     if (number_of_straps_ != 0 && strap_count_ == number_of_straps_) {
       // if number of straps is met, stop adding
       // create arbitrary buffer grid intersection points and return
@@ -160,6 +159,7 @@ std::vector<Point*> Straps::makeStraps(int x_start,
       buffer_pts.push_back(p4);
       return buffer_pts;
     }
+    strap_count_++;
   }
   return buffer_pts;
 }

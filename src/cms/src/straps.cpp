@@ -43,7 +43,7 @@ Straps::Straps(int width,
   
 }
 
-std::vector<Point> Straps::makeStraps(int x_start,
+std::vector<Point*> Straps::makeStraps(int x_start,
                         int y_start,
                         int x_end,
                         int y_end,
